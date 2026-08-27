@@ -1,0 +1,58 @@
+import type { GalleryItem } from '../types';
+
+export const INITIAL_GALLERY_DATA: GalleryItem[] = [
+  {
+    id: 'gal-rohkris64-official',
+    title: 'Keluarga Besar Rohkris SMKN 64 Jakarta',
+    category: 'Fellowship',
+    imageUrl: '/rohkris64-group.jpg',
+    date: 'Tahun Ajaran 2025/2026',
+    description: 'Foto kebersamaan siswa-siswi dan pembina Rohkris SMKN 64 Jakarta dalam semangat persaudaraan dan pelayanan kasih Kristus.',
+    photographer: 'Dokumentasi Resmi Rohkris 64',
+  },
+  {
+    id: 'gal-1',
+    title: 'Perayaan Natal Bersama SMKN 64 Jakarta',
+    category: 'Natal',
+    imageUrl: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=1200&q=80',
+    date: '15 Desember 2025',
+    description: 'Momen penuh sukacita dan damai menyambut kelahiran Sang Juru Selamat bersama guru, siswa, dan alumni SMKN 64 Jakarta.',
+    photographer: 'Revalina & Tim Media',
+  },
+  {
+    id: 'gal-2',
+    title: 'Ibadah Padang & Kebersamaan Rohkris',
+    category: 'Fellowship',
+    imageUrl: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80',
+    date: '28 Oktober 2025',
+    description: 'Persekutuan di alam terbuka untuk menyegarkan rohani, membangun keakraban antar angkatan, dan memuji keagungan ciptaan Tuhan.',
+    photographer: 'Gabriel Setiawan',
+  },
+  {
+    id: 'gal-3',
+    title: 'Ibadah Rutin Jumat di Ruang Multimedia',
+    category: 'Ibadah Rutin',
+    imageUrl: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=1200&q=80',
+    date: '13 Februari 2026',
+    description: 'Penyembahan yang khidmat dan penaburan benih firman Tuhan bagi generasi muda SMKN 64 Jakarta.',
+    photographer: 'Tim Dokumentasi',
+  },
+  {
+    id: 'gal-4',
+    title: 'Latihan Musik & Worship Team Rohkris',
+    category: 'Latihan',
+    imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80',
+    date: '20 Januari 2026',
+    description: 'Persiapan hati dan keahlian bermusik untuk melayani Tuhan dengan segenap kemampuan terbaik.',
+    photographer: 'Grace Natalia',
+  },
+  {
+    id: 'gal-5',
+    title: 'Retreat Rohkris: "Deeply Rooted in Christ"',
+    category: 'Retreat',
+    imageUrl: 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1200&q=80',
+    date: '5-6 September 2025',
+    description: 'Dua hari satu malam yang mengubah hidup dalam perjumpaan pribadi dengan Tuhan dan penguatan komitmen pelayanan.',
+    photographer: 'BPH Rohkris 64',
+  },
+];
