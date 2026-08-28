@@ -20,13 +20,13 @@ export const INITIAL_GALLERY_DATA: GalleryItem[] = [
     photographer: 'Dokumentasi Resmi Rohkris 64',
   },
   {
-    id: 'gal-1',
+    id: 'gal-natal',
     title: 'Perayaan Natal Bersama SMKN 64 Jakarta',
     category: 'Natal',
-    imageUrl: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=1200&q=80',
-    date: '15 Desember 2025',
+    imageUrl: '/natal-rohkris64.jpg',
+    date: 'Perayaan Natal',
     description: 'Momen penuh sukacita dan damai menyambut kelahiran Sang Juru Selamat bersama guru, siswa, dan alumni SMKN 64 Jakarta.',
-    photographer: 'Revalina & Tim Media',
+    photographer: 'Dokumentasi Rohkris 64',
   },
   {
     id: 'gal-2',
