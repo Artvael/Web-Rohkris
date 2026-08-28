@@ -30,7 +30,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ items }) => {
     }).catch(console.error);
   }, []);
 
-  const categories = ['Semua', 'Natal', 'Ibadah Rutin', 'Retreat', 'Fellowship', 'Latihan', 'Lainnya'];
+  const categories = ['Semua', 'Paskah', 'Natal', 'Ibadah Rutin', 'Retreat', 'Fellowship', 'Latihan', 'Lainnya'];
 
   const dataSource = sanityItems.length > 0 ? sanityItems : items;
 

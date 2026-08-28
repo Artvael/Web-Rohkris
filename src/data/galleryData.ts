@@ -2,6 +2,15 @@ import type { GalleryItem } from '../types';
 
 export const INITIAL_GALLERY_DATA: GalleryItem[] = [
   {
+    id: 'gal-paskah',
+    title: 'Perayaan Paskah Bersama Rohkris SMKN 64',
+    category: 'Paskah',
+    imageUrl: '/paskah-rohkris64.jpg',
+    date: 'Perayaan Paskah',
+    description: 'Momen kebersamaan dan ucapan syukur keluarga besar Rohkris SMKN 64 Jakarta dalam memperingati kebangkitan Kristus.',
+    photographer: 'Dokumentasi Rohkris 64',
+  },
+  {
     id: 'gal-rohkris64-official',
     title: 'Keluarga Besar Rohkris SMKN 64 Jakarta',
     category: 'Fellowship',

@@ -19,12 +19,29 @@ export const galleryItem = {
       validation: (Rule: any) => Rule.required(),
     },
     {
-      name: 'date',
-      title: 'Tanggal',
-      type: 'date',
+      name: 'category',
+      title: 'Kategori Kegiatan',
+      type: 'string',
       options: {
-        dateFormat: 'YYYY-MM-DD',
+        list: [
+          { title: 'Paskah', value: 'Paskah' },
+          { title: 'Natal', value: 'Natal' },
+          { title: 'Ibadah Rutin', value: 'Ibadah Rutin' },
+          { title: 'Retreat', value: 'Retreat' },
+          { title: 'Fellowship', value: 'Fellowship' },
+          { title: 'Latihan', value: 'Latihan' },
+          { title: 'Lainnya', value: 'Lainnya' },
+        ],
+        layout: 'dropdown',
       },
+      initialValue: 'Paskah',
+      validation: (Rule: any) => Rule.required(),
+    },
+    {
+      name: 'date',
+      title: 'Tanggal / Keterangan Waktu',
+      type: 'string',
+      description: 'Misal: 15 April 2026 atau April 2026',
     },
     {
       name: 'description',
