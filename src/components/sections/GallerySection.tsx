@@ -14,25 +14,35 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ items }) => {
   const [sanityItems, setSanityItems] = useState<GalleryItem[]>([]);
 
   useEffect(() => {
-    sanityClient.fetch('*[_type == "galleryItem"] | order(_createdAt desc)').then((data) => {
-      if (data && data.length > 0) {
-        // Map sanity images to normal URLs
-        const mappedItems = data.map((item: any) => ({
-          id: item._id,
-          url: item.image ? urlFor(item.image).url() : '',
-          title: item.title,
-          description: item.description || '',
-          date: item.date || '',
-          category: item.category || 'Lainnya'
-        }));
-        setSanityItems(mappedItems);
-      }
-    }).catch(console.error);
+    sanityClient
+      .fetch('*[_type == "galleryItem"] | order(_createdAt desc)')
+      .then((data) => {
+        if (data && data.length > 0) {
+          // Map sanity images to normal URLs
+          const mappedItems = data.map((item: any) => ({
+            id: item._id,
+            imageUrl: item.image ? urlFor(item.image).url() : item.imageUrl || '',
+            title: item.title,
+            description: item.description || '',
+            date: item.date || '',
+            category: item.category || 'Lainnya',
+            photographer: item.photographer || 'Dokumentasi Rohkris 64',
+          }));
+          setSanityItems(mappedItems);
+        }
+      })
+      .catch(console.error);
   }, []);
 
   const categories = ['Semua', 'Paskah', 'Natal', 'Ibadah Rutin', 'Retreat', 'Fellowship', 'Latihan', 'Lainnya'];
 
-  const dataSource = sanityItems.length > 0 ? sanityItems : items;
+  // Combine Sanity items with default gallery items (avoiding duplicates by title)
+  const combinedItems = [
+    ...sanityItems,
+    ...items.filter((defaultItem) => !sanityItems.some((s) => s.title === defaultItem.title)),
+  ];
+
+  const dataSource = combinedItems.length > 0 ? combinedItems : items;
 
   const filteredItems = dataSource.filter((item) => {
     if (selectedCategory === 'Semua') return true;
