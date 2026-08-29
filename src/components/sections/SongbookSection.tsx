@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BorderGlow } from '../reactbits/BorderGlow';
 import { SONGS_DATA } from '../../data/songsData';
+import { searchOnlineSongs } from '../../services/songSearchService';
 import type { Song } from '../../types';
-import { Music, Search, Disc, Copy, Check, X, Filter } from 'lucide-react';
+import {
+  Music,
+  Search,
+  Disc,
+  Copy,
+  Check,
+  X,
+  Filter,
+  Sparkles,
+  Globe,
+  Loader2,
+  BookmarkPlus,
+  BookmarkCheck,
+} from 'lucide-react';
 
 export const SongbookSection: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,9 +25,89 @@ export const SongbookSection: React.FC = () => {
   const [activeSongModal, setActiveSongModal] = useState<Song | null>(null);
   const [copiedSongId, setCopiedSongId] = useState<string | null>(null);
 
+  // Online search state
+  const [onlineSongs, setOnlineSongs] = useState<Song[]>([]);
+  const [isSearchingOnline, setIsSearchingOnline] = useState(false);
+  const [savedSongIds, setSavedSongIds] = useState<string[]>([]);
+  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const categories = ['Semua', 'Penyembahan', 'Pujian'];
 
-  const filteredSongs = SONGS_DATA.filter((song) => {
+  // Load custom saved songs from localStorage on mount
+  const [localSongs, setLocalSongs] = useState<Song[]>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('rohkris64_custom_songs');
+        if (saved) return [...JSON.parse(saved), ...SONGS_DATA];
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return SONGS_DATA;
+  });
+
+  const handleSaveToBank = (song: Song) => {
+    if (localSongs.some((s) => s.title.toLowerCase() === song.title.toLowerCase())) {
+      return;
+    }
+    const updated = [song, ...localSongs];
+    setLocalSongs(updated);
+    setSavedSongIds((prev) => [...prev, song.id]);
+    try {
+      const customOnly = updated.filter(
+        (s) => !SONGS_DATA.some((def) => def.id === s.id)
+      );
+      localStorage.setItem('rohkris64_custom_songs', JSON.stringify(customOnly));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // Trigger online search automatically when typing with debounce
+  useEffect(() => {
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    if (searchTerm.trim().length >= 3) {
+      setIsSearchingOnline(true);
+      searchTimeoutRef.current = setTimeout(async () => {
+        const results = await searchOnlineSongs(searchTerm);
+        // Exclude songs already in localSongs
+        const newResults = results.filter(
+          (online) =>
+            !localSongs.some(
+              (loc) => loc.title.toLowerCase() === online.title.toLowerCase()
+            )
+        );
+        setOnlineSongs(newResults);
+        setIsSearchingOnline(false);
+      }, 500);
+    } else {
+      setOnlineSongs([]);
+      setIsSearchingOnline(false);
+    }
+
+    return () => {
+      if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
+    };
+  }, [searchTerm, localSongs]);
+
+  const handleManualSearchOnline = async () => {
+    if (!searchTerm.trim()) return;
+    setIsSearchingOnline(true);
+    const results = await searchOnlineSongs(searchTerm);
+    const newResults = results.filter(
+      (online) =>
+        !localSongs.some(
+          (loc) => loc.title.toLowerCase() === online.title.toLowerCase()
+        )
+    );
+    setOnlineSongs(newResults);
+    setIsSearchingOnline(false);
+  };
+
+  const filteredLocalSongs = localSongs.filter((song) => {
     const matchSearch =
       song.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       song.artist.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -25,8 +119,15 @@ export const SongbookSection: React.FC = () => {
     return matchSearch && matchCategory;
   });
 
+  const filteredOnlineSongs = onlineSongs.filter((song) => {
+    if (selectedCategory === 'Semua') return true;
+    return song.category === selectedCategory;
+  });
+
   const handleCopyLyrics = (song: Song) => {
-    const text = `${song.title} - ${song.artist}\nKey: ${song.key} | ${song.tempo}\n\n${song.chordsSnippet ? `[Chords]: ${song.chordsSnippet}\n\n` : ''}${song.lyrics}\n\n— Rohkris SMKN 64 Jakarta`;
+    const text = `${song.title} - ${song.artist}\nKey: ${song.key} | ${song.tempo}\n\n${
+      song.chordsSnippet ? `[Chords]: ${song.chordsSnippet}\n\n` : ''
+    }${song.lyrics}\n\n— Rohkris SMKN 64 Jakarta`;
     navigator.clipboard.writeText(text);
     setCopiedSongId(song.id);
     setTimeout(() => setCopiedSongId(null), 2500);
@@ -45,7 +146,7 @@ export const SongbookSection: React.FC = () => {
             Bank Lagu & Lirik Rohani
           </h2>
           <p className="text-stone-300 text-sm md:text-base leading-relaxed">
-            Kumpulan lagu pujian, penyembahan, dan akord kunci untuk tim worship dan jemaat Rohkris SMKN 64 Jakarta.
+            Kumpulan lagu pujian, penyembahan, dan akord kunci untuk tim worship dan jemaat Rohkris SMKN 64 Jakarta. Dilengkapi fitur pencarian lirik online otomatis!
           </p>
         </div>
 
@@ -57,9 +158,15 @@ export const SongbookSection: React.FC = () => {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Cari judul lagu, artis, atau lirik..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-stone-900/90 border border-stone-800 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 text-stone-100 text-xs transition-all outline-none"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleManualSearchOnline();
+              }}
+              placeholder="Cari judul lagu (contoh: Give Thanks, Way Maker)..."
+              className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-stone-900/90 border border-stone-800 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 text-stone-100 text-xs transition-all outline-none"
             />
+            {isSearchingOnline && (
+              <Loader2 className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-400 animate-spin" />
+            )}
           </div>
 
           <div className="flex items-center gap-2">
@@ -83,72 +190,226 @@ export const SongbookSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Songs Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredSongs.map((song) => (
-            <BorderGlow
-              key={song.id}
-              glowColor="rgba(245, 158, 11, 0.3)"
-              borderRadius="1.25rem"
-              className="h-full group cursor-pointer"
-            >
-              <div
-                onClick={() => setActiveSongModal(song)}
-                className="p-6 flex flex-col justify-between h-full space-y-4"
+        {/* Online Search Status Banner */}
+        {searchTerm.trim().length >= 2 && (
+          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 max-w-3xl mx-auto">
+            <div className="flex items-center gap-2">
+              <Globe className="w-4 h-4 text-amber-400 flex-shrink-0" />
+              <span>
+                Mencari: <strong className="text-white">"{searchTerm}"</strong>{' '}
+                {isSearchingOnline ? (
+                  <span className="text-amber-400 font-medium">(Sedang mencari lirik online...)</span>
+                ) : (
+                  <span>
+                    • Ditemukan {filteredLocalSongs.length} di bank lokal, {filteredOnlineSongs.length} dari web.
+                  </span>
+                )}
+              </span>
+            </div>
+
+            {!isSearchingOnline && (
+              <button
+                onClick={handleManualSearchOnline}
+                className="flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold transition-all cursor-pointer"
               >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
-                      {song.category}
-                    </span>
-                    <span className="text-xs text-stone-400 font-mono bg-stone-950 px-2 py-0.5 rounded border border-stone-800">
-                      Key: {song.key}
-                    </span>
-                  </div>
+                <Sparkles className="w-3 h-3" />
+                <span>Cari Ulang</span>
+              </button>
+            )}
+          </div>
+        )}
 
-                  <div>
-                    <h4 className="text-lg font-bold text-white font-['Outfit'] group-hover:text-amber-300 transition-colors">
-                      {song.title}
-                    </h4>
-                    <p className="text-xs text-stone-400 flex items-center gap-1.5 mt-0.5">
-                      <Disc className="w-3 h-3 text-amber-400" />
-                      <span>{song.artist}</span>
-                      <span>•</span>
-                      <span>{song.tempo}</span>
-                    </p>
-                  </div>
+        {/* Songs Grid: Local Songs */}
+        <div className="space-y-4">
+          {filteredLocalSongs.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {filteredLocalSongs.map((song) => (
+                <BorderGlow
+                  key={song.id}
+                  glowColor="rgba(245, 158, 11, 0.3)"
+                  borderRadius="1.25rem"
+                  className="h-full group cursor-pointer"
+                >
+                  <div
+                    onClick={() => setActiveSongModal(song)}
+                    className="p-6 flex flex-col justify-between h-full space-y-4"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                          {song.category}
+                        </span>
+                        <span className="text-xs text-stone-400 font-mono bg-stone-950 px-2 py-0.5 rounded border border-stone-800">
+                          Key: {song.key}
+                        </span>
+                      </div>
 
-                  <p className="text-stone-300 text-xs italic line-clamp-3 leading-relaxed whitespace-pre-line bg-stone-950/50 p-3 rounded-xl border border-stone-850">
-                    {song.lyrics}
+                      <div>
+                        <h4 className="text-lg font-bold text-white font-['Outfit'] group-hover:text-amber-300 transition-colors">
+                          {song.title}
+                        </h4>
+                        <p className="text-xs text-stone-400 flex items-center gap-1.5 mt-0.5">
+                          <Disc className="w-3 h-3 text-amber-400" />
+                          <span>{song.artist}</span>
+                          <span>•</span>
+                          <span>{song.tempo}</span>
+                        </p>
+                      </div>
+
+                      <p className="text-stone-300 text-xs italic line-clamp-3 leading-relaxed whitespace-pre-line bg-stone-950/50 p-3 rounded-xl border border-stone-850">
+                        {song.lyrics}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-stone-800 flex items-center justify-between text-xs">
+                      <span className="text-amber-400 font-semibold group-hover:underline">
+                        Lihat Lirik Lengkap & Chords →
+                      </span>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCopyLyrics(song);
+                        }}
+                        className="p-1.5 rounded-lg bg-stone-800 hover:bg-amber-500 text-stone-300 hover:text-stone-950 transition-colors"
+                        title="Salin Lirik"
+                      >
+                        {copiedSongId === song.id ? (
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        ) : (
+                          <Copy className="w-3.5 h-3.5" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </BorderGlow>
+              ))}
+            </div>
+          )}
+
+          {/* Online Songs Results */}
+          {filteredOnlineSongs.length > 0 && (
+            <div className="space-y-4 pt-6 border-t border-stone-800/80">
+              <div className="flex items-center gap-2">
+                <Globe className="w-4 h-4 text-amber-400" />
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider">
+                  Hasil Pencarian Lirik Online ({filteredOnlineSongs.length} Lagu Ditemukan)
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {filteredOnlineSongs.map((song) => (
+                  <BorderGlow
+                    key={song.id}
+                    glowColor="rgba(56, 189, 248, 0.3)"
+                    borderRadius="1.25rem"
+                    className="h-full group cursor-pointer border-amber-500/30"
+                  >
+                    <div
+                      onClick={() => setActiveSongModal(song)}
+                      className="p-6 flex flex-col justify-between h-full space-y-4"
+                    >
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                            <Sparkles className="w-3 h-3" />
+                            {song.category} • Online
+                          </span>
+                          <span className="text-xs text-stone-400 font-mono bg-stone-950 px-2 py-0.5 rounded border border-stone-800">
+                            Key: {song.key}
+                          </span>
+                        </div>
+
+                        <div>
+                          <h4 className="text-lg font-bold text-white font-['Outfit'] group-hover:text-amber-300 transition-colors">
+                            {song.title}
+                          </h4>
+                          <p className="text-xs text-stone-400 flex items-center gap-1.5 mt-0.5">
+                            <Disc className="w-3 h-3 text-amber-400" />
+                            <span>{song.artist}</span>
+                            <span>•</span>
+                            <span>{song.tempo}</span>
+                          </p>
+                        </div>
+
+                        <p className="text-stone-300 text-xs italic line-clamp-3 leading-relaxed whitespace-pre-line bg-stone-950/50 p-3 rounded-xl border border-stone-850">
+                          {song.lyrics}
+                        </p>
+                      </div>
+
+                      <div className="pt-3 border-t border-stone-800 flex items-center justify-between text-xs">
+                        <span className="text-amber-400 font-semibold group-hover:underline">
+                          Buka Lirik & Chords →
+                        </span>
+
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleSaveToBank(song);
+                            }}
+                            className="p-1.5 rounded-lg bg-stone-800 hover:bg-amber-500 text-stone-300 hover:text-stone-950 transition-colors"
+                            title="Simpan ke Bank Lagu"
+                          >
+                            {savedSongIds.includes(song.id) ||
+                            localSongs.some((s) => s.title === song.title) ? (
+                              <BookmarkCheck className="w-3.5 h-3.5 text-amber-400" />
+                            ) : (
+                              <BookmarkPlus className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCopyLyrics(song);
+                            }}
+                            className="p-1.5 rounded-lg bg-stone-800 hover:bg-amber-500 text-stone-300 hover:text-stone-950 transition-colors"
+                            title="Salin Lirik"
+                          >
+                            {copiedSongId === song.id ? (
+                              <Check className="w-3.5 h-3.5 text-emerald-400" />
+                            ) : (
+                              <Copy className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </BorderGlow>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Empty State */}
+          {filteredLocalSongs.length === 0 &&
+            filteredOnlineSongs.length === 0 &&
+            !isSearchingOnline && (
+              <div className="text-center py-12 px-4 rounded-2xl bg-stone-900/40 border border-stone-800 space-y-4 max-w-md mx-auto">
+                <Music className="w-10 h-10 text-stone-500 mx-auto" />
+                <div className="space-y-1">
+                  <h4 className="text-base font-bold text-white font-['Outfit']">
+                    Lagu belum ditemukan di bank lokal
+                  </h4>
+                  <p className="text-xs text-stone-400">
+                    Ketik judul lagu yang ingin dicari, sistem akan otomatis mencarikan liriknya dari database online!
                   </p>
                 </div>
-
-                <div className="pt-3 border-t border-stone-800 flex items-center justify-between text-xs">
-                  <span className="text-amber-400 font-semibold group-hover:underline">
-                    Lihat Lirik Lengkap & Chords →
-                  </span>
-
+                {searchTerm.trim().length >= 2 && (
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleCopyLyrics(song);
-                    }}
-                    className="p-1.5 rounded-lg bg-stone-800 hover:bg-amber-500 text-stone-300 hover:text-stone-950 transition-colors"
-                    title="Salin Lirik"
+                    onClick={handleManualSearchOnline}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition-all cursor-pointer"
                   >
-                    {copiedSongId === song.id ? (
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    ) : (
-                      <Copy className="w-3.5 h-3.5" />
-                    )}
+                    <Sparkles className="w-4 h-4" />
+                    <span>Cari "{searchTerm}" di Web Sekarang</span>
                   </button>
-                </div>
+                )}
               </div>
-            </BorderGlow>
-          ))}
+            )}
         </div>
 
-        {/* Song Details Lightbox Modal */}
+        {/* Song Details Lightbox Modal (Exact design match) */}
         <AnimatePresence>
           {activeSongModal && (
             <motion.div
@@ -180,7 +441,7 @@ export const SongbookSection: React.FC = () => {
 
                   <button
                     onClick={() => setActiveSongModal(null)}
-                    className="p-2 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white transition-colors"
+                    className="p-2 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white transition-colors cursor-pointer"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -194,32 +455,53 @@ export const SongbookSection: React.FC = () => {
 
                 <div className="space-y-2">
                   <h4 className="text-xs font-bold text-stone-400 uppercase tracking-wider">Lirik Lagu:</h4>
-                  <div className="p-5 rounded-xl bg-stone-950 border border-stone-800 text-stone-200 text-sm leading-relaxed whitespace-pre-line font-mono">
+                  <div className="p-5 rounded-xl bg-stone-950 border border-stone-800 text-stone-200 text-sm leading-relaxed whitespace-pre-line font-mono select-text">
                     {activeSongModal.lyrics}
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-stone-800">
-                  <button
-                    onClick={() => handleCopyLyrics(activeSongModal)}
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs shadow-md shadow-amber-500/20 transition-all cursor-pointer"
-                  >
-                    {copiedSongId === activeSongModal.id ? (
-                      <>
-                        <Check className="w-4 h-4 text-emerald-950" />
-                        <span>Tersalin!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-4 h-4" />
-                        <span>Salin Lirik & Chord</span>
-                      </>
-                    )}
-                  </button>
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-stone-800">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleCopyLyrics(activeSongModal)}
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs shadow-md shadow-amber-500/20 transition-all cursor-pointer"
+                    >
+                      {copiedSongId === activeSongModal.id ? (
+                        <>
+                          <Check className="w-4 h-4 text-emerald-950" />
+                          <span>Tersalin!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-4 h-4" />
+                          <span>Salin Lirik & Chord</span>
+                        </>
+                      )}
+                    </button>
+
+                    <button
+                      onClick={() => handleSaveToBank(activeSongModal)}
+                      className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs font-semibold border border-stone-700 transition-all cursor-pointer"
+                      title="Simpan ke Bank Lagu Lokal"
+                    >
+                      {savedSongIds.includes(activeSongModal.id) ||
+                      localSongs.some((s) => s.title === activeSongModal.title) ? (
+                        <>
+                          <BookmarkCheck className="w-4 h-4 text-emerald-400" />
+                          <span>Tersimpan di Bank</span>
+                        </>
+                      ) : (
+                        <>
+                          <BookmarkPlus className="w-4 h-4 text-amber-400" />
+                          <span>Simpan ke Bank</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
 
                   <button
                     onClick={() => setActiveSongModal(null)}
-                    className="px-4 py-2 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-semibold"
+                    className="px-4 py-2 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-semibold cursor-pointer"
                   >
                     Tutup
                   </button>
@@ -232,3 +514,4 @@ export const SongbookSection: React.FC = () => {
     </section>
   );
 };
+
