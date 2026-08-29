@@ -2,6 +2,30 @@
 
 export const SONGS_DATA: Song[] = [
   {
+    id: 's-peganglah-tanganku-roh-kudus',
+    title: 'Peganglah Tanganku Roh Kudus',
+    artist: 'Franky Sihombing / Nikita',
+    key: 'G / A',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Peganglah tanganku Roh Kudus
+Setiap hari
+Ku tak dapat jalan sendiri
+Tanpa Roh-Mu
+
+Peganglah tanganku Roh Kudus
+Setiap hari
+Ku tak dapat jalan sendiri
+Tanpa Roh-Mu
+
+Reff:
+Bawalah diriku kepada kebenaran
+Bimbinglah langkahku di jalan-Mu Tuhan
+Ajarlah hatiku mengerti isi hati-Mu
+Peganglah tanganku Roh Kudus`,
+    chordsSnippet: 'Intro: G - D/F# - Em - C - Am - D - G',
+  },
+  {
     id: 's-give-thanks',
     title: 'Give Thanks (Bersyukur)',
     artist: 'Don Moen / Henry Smith',
@@ -28,7 +52,7 @@ Bersyukur!`,
     chordsSnippet: 'Intro: F - C/E - Dm - Am - Bb - F/A - Eb - C',
   },
   {
-    id: 's-1',
+    id: 's-goodness-of-god',
     title: 'KebaikanMu Menuntunku (Goodness of God)',
     artist: 'Bethel Music / NDC Worship',
     key: 'G / A',
@@ -184,61 +208,109 @@ Menuruti seluruh kehendak-Mu`,
     chordsSnippet: 'Intro: G - D/F# - Em - C - D - G',
   },
   {
-    id: 's-2',
-    title: "S'bab Dia Hidup (Because He Lives)",
-    artist: 'Hymn / JPCC Worship',
+    id: 's-bapa-yang-kekal',
+    title: 'Bapa Yang Kekal',
+    artist: 'Julita Manik',
     key: 'C / D',
-    tempo: 'Medium',
-    category: 'Pujian',
-    lyrics: `Anak Allah Yesus nama-Nya
-Menyembuhkan, menyucikan
-Mati di salib tebus dosaku
-Kubur kosong membuktikan Dia hidup
-
-Reff:
-S'bab Dia hidup ada hari esok
-S'bab Dia hidup 'ku tak gentar
-Karena 'ku tahu Dia pegang masa depanku
-Hidup jadi berarti s'bab Dia hidup`,
-    chordsSnippet: 'Intro: C - F - C - G',
-  },
-  {
-    id: 's-3',
-    title: "Besar Anug'rahMu (Great is Your Grace)",
-    artist: 'JPCC Worship',
-    key: 'E / F',
-    tempo: 'Medium',
+    tempo: 'Slow Worship',
     category: 'Penyembahan',
-    lyrics: `Ku ada sebagaimana ku ada
-Berdiri menghadap takhta-Mu Bapa
-Semua kar'na anug'rah-Mu
-Yang t'lah s'lamatkanku
+    lyrics: `Kasih yang sempurna telah kut'rima dari-Mu
+Bukan kar'na kebaikanku
+Hanya oleh kasih karunia-Mu
+Kau pulihkan hidupku, layakkanku
+'Tuk dapat memanggil-Mu Bapa
 
 Reff:
-Besar anug'rah-Mu, melimpah kasih-Mu
-Semakin nyata dengan perbuatanku
-Yesus Kau perlindunganku, pengharapanku
-Kusembah Kau Yesus, selamanya`,
-    chordsSnippet: 'Intro: E - B/D# - C#m - A',
+Kau b'ri yang kupinta, saat kumencari kumendapatkan
+Kuketuk pintu-Mu dan Kau bukakan
+S'bab Kau Bapaku, Bapa yang kekal
+Takkan Kau biarkan, aku melangkah hanya sendirian
+Kau selalu ada bagiku, s'bab Kau Bapaku, Bapa yang kekal`,
+    chordsSnippet: 'Intro: C - Em - F - G - Em - Am - Dm - G',
   },
   {
-    id: 's-4',
-    title: 'Nyanyi Bagi Dia (Praise the Lord)',
-    artist: 'GMS Worship',
-    key: 'D / E',
-    tempo: 'Upbeat / Praise',
-    category: 'Pujian',
-    lyrics: `Angkat suara puji Dia
-Raja s'gala raja yang perkasa
-Bumi bersorak, langit berguncang
-Kemuliaan-Nya nyata di sini
+    id: 's-lingkupiku',
+    title: 'Lingkupiku (Hide Me Now)',
+    artist: 'Reuben Morgan / Hillsong',
+    key: 'C / D',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Lingkupiku, dengan sayap-Mu
+Naungiku, dalam kuasa-Mu
 
 Reff:
-Haleluya, Haleluya
-Pujilah Tuhan yang berkuasa
-Haleluya, Haleluya
-Kemenangan ada bagi kita!`,
-    chordsSnippet: 'Intro: D - G - Bm - A (Upbeat Drum)',
+Di saat badai bergelora
+Ku akan terbang bersama-Mu
+Bapa Kau Raja s'tas s'mesta
+Ku tenang s'bab Kau Allahku
+
+Jiwaku tenang dalam Kristus
+Lihat kuasa-Nya dalam keheningan`,
+    chordsSnippet: 'Intro: C - G/B - Am - F - D/F# - G',
+  },
+  {
+    id: 's-kusiapkan-hatiku',
+    title: 'Kusiapkan Hatiku Tuhan',
+    artist: 'Hank Samuel',
+    key: 'F / G',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Kusiapkan hatiku Tuhan
+'Tuk dengar firman-Mu saat ini
+Kusujud menyembah-Mu Tuhan
+Masuk hadirat-Mu saat ini
+
+Curahkan urapan-Mu Tuhan
+Bagi jemaat-Mu saat ini
+Kusiapkan hatiku Tuhan
+'Tuk dengar firman-Mu
+
+Reff:
+Firman-Mu Tuhan, tiada berubah
+Dahulu sekarang selama-lamanya
+Tiada berkesudahan
+Firman-Mu Tuhan, penolong hidupku
+Kusiapkan hatiku Tuhan
+'Tuk dengar firman-Mu`,
+    chordsSnippet: 'Intro: F - Bb - C - F - Dm - Gm - C',
+  },
+  {
+    id: 's-karna-salibmu',
+    title: "Kar'na Salib-Mu",
+    artist: 'True Worshippers',
+    key: 'G / A',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Hanya Kau Tuhan di hidupku
+Kau berikan hidup yang baru
+Darah-Mu menyucikan pulihkan hatiku
+Nyatakan kemuliaan-Mu
+
+Reff:
+Kar'na salib-Mu 'ku hidup
+Kar'na salib-Mu 'ku menang
+Engkau yang berkuasa sanggup 'tuk melakukan
+Mukjizat-Mu di hidupku`,
+    chordsSnippet: 'Intro: G - D/F# - Em - C - Am - D',
+  },
+  {
+    id: 's-bapa-engkau-baik',
+    title: 'Bapa Engkau Baik',
+    artist: 'NDC Worship',
+    key: 'C / D',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Bapa Engkau baik, Bapa Engkau baik
+Kau selalu ada di setiap jalanku
+Bapa Engkau baik, Bapa Engkau baik
+Kasih-Mu setia tak pernah berkesudahan
+
+Reff:
+Ku bersyukur Bapa, ku bersyukur Bapa
+Atas kasih setia-Mu di hidupku
+Ku bersyukur Bapa, ku bersyukur Bapa
+Kau Bapa yang setia selamanya`,
+    chordsSnippet: 'Intro: C - G/B - Am - Em - F - C - Dm - G',
   },
   {
     id: 's-kaulah-harapan',
@@ -278,6 +350,63 @@ Semua yang Kau rancangkan bagiku
 Namun satu hal yang ku percaya
 Kau jadikan s'galanya indah pada waktunya`,
     chordsSnippet: 'Intro: C - G/B - Am - F - Dm - G',
+  },
+  {
+    id: 's-sbab-dia-hidup',
+    title: "S'bab Dia Hidup (Because He Lives)",
+    artist: 'Hymn / JPCC Worship',
+    key: 'C / D',
+    tempo: 'Medium',
+    category: 'Pujian',
+    lyrics: `Anak Allah Yesus nama-Nya
+Menyembuhkan, menyucikan
+Mati di salib tebus dosaku
+Kubur kosong membuktikan Dia hidup
+
+Reff:
+S'bab Dia hidup ada hari esok
+S'bab Dia hidup 'ku tak gentar
+Karena 'ku tahu Dia pegang masa depanku
+Hidup jadi berarti s'bab Dia hidup`,
+    chordsSnippet: 'Intro: C - F - C - G',
+  },
+  {
+    id: 's-besar-anugrahmu',
+    title: "Besar Anug'rahMu (Great is Your Grace)",
+    artist: 'JPCC Worship',
+    key: 'E / F',
+    tempo: 'Medium',
+    category: 'Penyembahan',
+    lyrics: `Ku ada sebagaimana ku ada
+Berdiri menghadap takhta-Mu Bapa
+Semua kar'na anug'rah-Mu
+Yang t'lah s'lamatkanku
+
+Reff:
+Besar anug'rah-Mu, melimpah kasih-Mu
+Semakin nyata dengan perbuatanku
+Yesus Kau perlindunganku, pengharapanku
+Kusembah Kau Yesus, selamanya`,
+    chordsSnippet: 'Intro: E - B/D# - C#m - A',
+  },
+  {
+    id: 's-nyanyi-bagi-dia',
+    title: 'Nyanyi Bagi Dia (Praise the Lord)',
+    artist: 'GMS Worship',
+    key: 'D / E',
+    tempo: 'Upbeat / Praise',
+    category: 'Pujian',
+    lyrics: `Angkat suara puji Dia
+Raja s'gala raja yang perkasa
+Bumi bersorak, langit berguncang
+Kemuliaan-Nya nyata di sini
+
+Reff:
+Haleluya, Haleluya
+Pujilah Tuhan yang berkuasa
+Haleluya, Haleluya
+Kemenangan ada bagi kita!`,
+    chordsSnippet: 'Intro: D - G - Bm - A (Upbeat Drum)',
   },
   {
     id: 's-hidup-ini-kesempatan',

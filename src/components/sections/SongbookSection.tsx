@@ -108,11 +108,28 @@ export const SongbookSection: React.FC = () => {
   };
 
   const filteredLocalSongs = localSongs.filter((song) => {
-    const matchSearch =
-      song.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      song.artist.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      song.lyrics.toLowerCase().includes(searchTerm.toLowerCase());
+    const term = searchTerm.toLowerCase().trim();
+    if (!term) return selectedCategory === 'Semua' || song.category === selectedCategory;
 
+    // Normalizations for matching
+    const normTerm = term
+      .replace(/tangan\s*ku/gi, 'tanganku')
+      .replace(/kasih\s*mu/gi, 'kasihmu')
+      .replace(/hati\s*ku/gi, 'hatiku')
+      .replace(/roh\s*kudus/gi, 'roh kudus')
+      .replace(/janji\s*mu/gi, 'janjimu')
+      .replace(/hidup\s*ku/gi, 'hidupku');
+
+    const songText = `${song.title} ${song.artist} ${song.lyrics}`.toLowerCase();
+
+    // 1. Direct or normalized match
+    const directMatch = songText.includes(term) || songText.includes(normTerm);
+
+    // 2. Multi-word match: every word (>= 3 chars) is in song text
+    const words = normTerm.split(/\s+/).filter((w) => w.length >= 3);
+    const wordsMatch = words.length > 1 && words.every((w) => songText.includes(w));
+
+    const matchSearch = directMatch || wordsMatch;
     const matchCategory =
       selectedCategory === 'Semua' || song.category === selectedCategory;
 
