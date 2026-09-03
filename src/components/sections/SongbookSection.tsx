@@ -186,30 +186,46 @@ export const SongbookSection: React.FC = () => {
             )}
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-stone-400 font-semibold flex items-center gap-1">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="text-xs text-stone-400 font-semibold flex items-center gap-1 mr-1">
               <Filter className="w-3 h-3" />
               Kategori:
             </span>
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                  selectedCategory === cat
-                    ? 'bg-amber-500 text-stone-950 font-bold shadow-md shadow-amber-500/20'
-                    : 'bg-stone-900/80 text-stone-400 hover:text-white border border-stone-800'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+            {categories.map((cat) => {
+              const isSelected = selectedCategory === cat;
+              return (
+                <motion.button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  whileTap={{ scale: 0.94 }}
+                  className={`relative px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
+                    isSelected ? 'text-stone-950 font-bold' : 'text-stone-400 hover:text-white'
+                  }`}
+                >
+                  {isSelected && (
+                    <motion.div
+                      layoutId="activeSongCategoryPill"
+                      className="absolute inset-0 bg-amber-500 rounded-xl shadow-md shadow-amber-500/25 -z-10"
+                      transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                    />
+                  )}
+                  {!isSelected && (
+                    <div className="absolute inset-0 bg-stone-900/80 rounded-xl border border-stone-800 -z-20" />
+                  )}
+                  <span className="relative z-10">{cat}</span>
+                </motion.button>
+              );
+            })}
           </div>
         </div>
 
         {/* Online Search Status Banner */}
         {searchTerm.trim().length >= 2 && (
-          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center justify-between p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 max-w-3xl mx-auto shadow-lg shadow-amber-500/5"
+          >
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-amber-400 flex-shrink-0" />
               <span>
@@ -225,32 +241,41 @@ export const SongbookSection: React.FC = () => {
             </div>
 
             {!isSearchingOnline && (
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={handleManualSearchOnline}
-                className="flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold transition-all cursor-pointer"
+                className="flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold transition-colors cursor-pointer"
               >
                 <Sparkles className="w-3 h-3" />
                 <span>Cari Ulang</span>
-              </button>
+              </motion.button>
             )}
-          </div>
+          </motion.div>
         )}
 
         {/* Songs Grid: Local Songs */}
         <div className="space-y-4">
           {filteredLocalSongs.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filteredLocalSongs.map((song) => (
-                <BorderGlow
+              {filteredLocalSongs.map((song, idx) => (
+                <motion.div
                   key={song.id}
-                  glowColor="rgba(245, 158, 11, 0.3)"
-                  borderRadius="1.25rem"
-                  className="h-full group cursor-pointer"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: idx * 0.04 }}
+                  whileHover={{ y: -5 }}
+                  className="h-full"
                 >
-                  <div
-                    onClick={() => setActiveSongModal(song)}
-                    className="p-6 flex flex-col justify-between h-full space-y-4"
+                  <BorderGlow
+                    glowColor="rgba(245, 158, 11, 0.3)"
+                    borderRadius="1.25rem"
+                    className="h-full group cursor-pointer"
                   >
+                    <div
+                      onClick={() => setActiveSongModal(song)}
+                      className="p-6 flex flex-col justify-between h-full space-y-4"
+                    >
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
@@ -300,6 +325,7 @@ export const SongbookSection: React.FC = () => {
                     </div>
                   </div>
                 </BorderGlow>
+                </motion.div>
               ))}
             </div>
           )}
@@ -315,9 +341,16 @@ export const SongbookSection: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {filteredOnlineSongs.map((song) => (
-                  <BorderGlow
+                {filteredOnlineSongs.map((song, idx) => (
+                  <motion.div
                     key={song.id}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, delay: idx * 0.04 }}
+                    whileHover={{ y: -5 }}
+                    className="h-full"
+                  >
+                  <BorderGlow
                     glowColor="rgba(56, 189, 248, 0.3)"
                     borderRadius="1.25rem"
                     className="h-full group cursor-pointer border-amber-500/30"
@@ -394,6 +427,7 @@ export const SongbookSection: React.FC = () => {
                       </div>
                     </div>
                   </BorderGlow>
+                </motion.div>
                 ))}
               </div>
             </div>

@@ -58,8 +58,14 @@ export const PrayerBoxSection: React.FC = () => {
   return (
     <section id="kotak-doa" className="py-16 md:py-24 px-4 relative z-10">
       <div className="max-w-6xl mx-auto space-y-12">
-        {/* Header */}
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
+        {/* Header with Scroll Reveal */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center space-y-3 max-w-2xl mx-auto"
+        >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-300 border border-rose-500/30">
             <HeartHandshake className="w-3.5 h-3.5" />
             <span>Pelayanan Doa & Syafaat</span>
@@ -70,7 +76,7 @@ export const PrayerBoxSection: React.FC = () => {
           <p className="text-stone-300 text-sm md:text-base leading-relaxed">
             "Sebab di mana dua atau tiga orang berkumpul dalam Nama-Ku, di situ Aku ada di tengah-tengah mereka." — Matius 18:20
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Submission Form */}
@@ -176,13 +182,15 @@ export const PrayerBoxSection: React.FC = () => {
                   </div>
                 </div>
 
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.96 }}
                   type="submit"
-                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-stone-950 font-bold text-sm shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-stone-950 font-bold text-sm shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
                   <Send className="w-4 h-4" />
                   <span>Kirimkan Pokok Doa</span>
-                </button>
+                </motion.button>
 
                 <AnimatePresence>
                   {submitted && (
@@ -251,9 +259,11 @@ export const PrayerBoxSection: React.FC = () => {
                       <div className="flex items-center justify-between pt-2 border-t border-stone-800/70 text-xs">
                         <span className="text-[11px] text-stone-500">{prayer.createdAt}</span>
 
-                        <button
+                        <motion.button
+                          whileHover={{ scale: 1.08 }}
+                          whileTap={{ scale: 0.90 }}
                           onClick={() => toggleAmen(prayer.id)}
-                          className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                             isAmenVoted
                               ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
                               : 'bg-stone-800/80 hover:bg-stone-700 text-rose-300 border border-stone-700'
@@ -265,7 +275,7 @@ export const PrayerBoxSection: React.FC = () => {
                             }`}
                           />
                           <span>Amen ({prayer.amenCount})</span>
-                        </button>
+                        </motion.button>
                       </div>
                     </div>
                   </BorderGlow>
