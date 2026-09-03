@@ -49,8 +49,20 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
               <img
                 src={item.imageUrl}
                 alt={item.title}
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  const title = (item.title || '').toLowerCase();
+                  const cat = (item.category || '').toLowerCase();
+                  if (cat === 'natal' || title.includes('natal')) {
+                    target.src = '/natal-rohkris64.jpg';
+                  } else if (cat === 'paskah' || title.includes('paskah')) {
+                    target.src = '/paskah-rohkris64.jpg';
+                  } else {
+                    target.src = '/rohkris64-group.jpg';
+                  }
+                }}
                 className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                loading="lazy"
+                decoding="async"
               />
 
               {/* Gradient Overlay */}
@@ -160,6 +172,18 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
                 <img
                   src={lightboxItem.imageUrl}
                   alt={lightboxItem.title}
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    const title = (lightboxItem.title || '').toLowerCase();
+                    const cat = (lightboxItem.category || '').toLowerCase();
+                    if (cat === 'natal' || title.includes('natal')) {
+                      target.src = '/natal-rohkris64.jpg';
+                    } else if (cat === 'paskah' || title.includes('paskah')) {
+                      target.src = '/paskah-rohkris64.jpg';
+                    } else {
+                      target.src = '/rohkris64-group.jpg';
+                    }
+                  }}
                   className="w-full max-h-[70vh] object-contain bg-black"
                 />
                 <div className="p-6 bg-stone-900">

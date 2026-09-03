@@ -18,16 +18,40 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ items }) => {
       .fetch('*[_type == "galleryItem"] | order(_createdAt desc)')
       .then((data) => {
         if (data && data.length > 0) {
-          // Map sanity images to normal URLs
-          const mappedItems = data.map((item: any) => ({
-            id: item._id,
-            imageUrl: item.image ? urlFor(item.image).url() : item.imageUrl || '',
-            title: item.title,
-            description: item.description || '',
-            date: item.date || '',
-            category: item.category || 'Lainnya',
-            photographer: item.photographer || 'Dokumentasi Rohkris 64',
-          }));
+          // Map sanity images to normal URLs with local fallbacks
+          const mappedItems = data.map((item: any) => {
+            let imgUrl = '';
+            const titleLower = (item.title || '').toLowerCase();
+            const catLower = (item.category || '').toLowerCase();
+
+            // 1. Prefer rock-solid local assets for official events
+            if (catLower === 'natal' || titleLower.includes('natal')) {
+              imgUrl = '/natal-rohkris64.jpg';
+            } else if (catLower === 'paskah' || titleLower.includes('paskah')) {
+              imgUrl = '/paskah-rohkris64.jpg';
+            } else {
+              try {
+                if (item.image) {
+                  imgUrl = urlFor(item.image).url();
+                }
+              } catch (e) {
+                console.warn('Error resolving sanity image', e);
+              }
+              if (!imgUrl) {
+                imgUrl = item.imageUrl || '/rohkris64-group.jpg';
+              }
+            }
+
+            return {
+              id: item._id,
+              imageUrl: imgUrl,
+              title: item.title,
+              description: item.description || '',
+              date: item.date || '',
+              category: item.category || 'Lainnya',
+              photographer: item.photographer || 'Dokumentasi Rohkris 64',
+            };
+          });
           setSanityItems(mappedItems);
         }
       })
