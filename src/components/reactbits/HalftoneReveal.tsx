@@ -50,18 +50,18 @@ export const HalftoneReveal: React.FC<HalftoneRevealProps> = ({
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="absolute inset-0 pointer-events-none z-10"
         style={{
-          backgroundColor: 'rgba(12, 10, 9, 0.4)',
+          backgroundColor: 'rgba(52, 56, 49, 0.2)',
           backgroundImage: `radial-gradient(${dotColor} ${dotSize}px, transparent ${dotSize}px)`,
           backgroundSize: `${gap}px ${gap}px`,
         }}
       />
 
       {/* Ambient Warm Vignette */}
-      <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent pointer-events-none z-10 transition-opacity duration-300 group-hover:opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#282828]/50 via-transparent to-transparent pointer-events-none z-10 transition-opacity duration-300 group-hover:opacity-60" />
 
       {/* Reveal Hint Badge */}
       <div className="absolute bottom-4 right-4 z-20">
-        <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-stone-950/80 text-amber-300 border border-amber-500/30 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-0">
+        <span className="px-3 py-1 rounded-full text-[10px] font-semibold bg-[#efeedc] text-[#343831] border border-[#343831] shadow-xs transition-opacity duration-300 group-hover:opacity-0">
           Arahkan kursor untuk melihat foto asli ✨
         </span>
       </div>

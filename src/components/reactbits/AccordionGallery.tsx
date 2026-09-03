@@ -20,7 +20,7 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
 
   if (!items || items.length === 0) {
     return (
-      <div className="text-center py-12 text-stone-400 bg-stone-900/40 rounded-2xl border border-stone-800">
+      <div className="text-center py-12 text-[#62665a] bg-[#f7f6ec] rounded-2xl border border-[#e6e3d1] shadow-xs">
         Belum ada foto galeri kegiatan yang diunggah.
       </div>
     );

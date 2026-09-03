@@ -160,7 +160,8 @@ export const SongbookSection: React.FC = () => {
   };
 
   return (
-    <section id="lagu" className="py-16 md:py-24 px-4 relative z-10">
+    <section id="bank-lagu" className="py-16 md:py-24 px-4 relative z-10 scroll-mt-20">
+      <div id="lagu" className="absolute -top-24 left-0 pointer-events-none" />
       <div className="max-w-6xl mx-auto space-y-10">
         {/* Section Header */}
         <div className="text-center space-y-3 max-w-2xl mx-auto">

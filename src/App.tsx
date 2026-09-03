@@ -111,7 +111,7 @@ export function App() {
         element={
           <Suspense
             fallback={
-              <div className="flex items-center justify-center min-h-screen bg-stone-950 text-amber-400 font-bold">
+              <div className="flex items-center justify-center min-h-screen bg-[#fdfdf5] text-[#282828] font-bold font-['Outfit']">
                 Memuat Sanity Studio...
               </div>
             }
