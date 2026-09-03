@@ -31,26 +31,26 @@ export function MainWebsite() {
   const { prayers: prayerRequests } = usePrayerStore();
 
   return (
-    <div className="relative min-h-screen bg-[#fdfdf5] text-[#282828] selection:bg-[#c5de9b] selection:text-[#282828] overflow-x-hidden font-['Plus_Jakarta_Sans',sans-serif]">
-      {/* 1. Full-Screen WebGL Topography Background (Soft Warm Elevation Contours) */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-25">
+    <div className="relative min-h-screen bg-[#f4f0e6] text-[#282828] selection:bg-[#c5de9b] selection:text-[#282828] overflow-x-hidden font-['Plus_Jakarta_Sans',sans-serif]">
+      {/* 1. Full-Screen WebGL Topography Background (Organic Warm Elevation Contours) */}
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-45">
         <Topography
-          lowColor="#cfc0a5"
-          midColor="#a5c47c"
-          highColor="#8c6a49"
+          lowColor="#baa88c"
+          midColor="#84a159"
+          highColor="#6e5234"
           speed={0.25}
           morphAmount={2.5}
           morphSpeed={0.03}
-          bands={2.0}
-          thickness={0.015}
+          bands={2.2}
+          thickness={0.018}
           scale={1.0}
           pixelSize={1.0}
-          glow={0.3}
+          glow={0.4}
           colorMode="elevation"
-          contrast={2.2}
+          contrast={2.4}
           brightness={1.1}
           fillBands={false}
-          opacity={0.8}
+          opacity={0.85}
           grain={true}
           grainIntensity={0.08}
           mouseInteraction={true}

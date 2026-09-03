@@ -35,15 +35,15 @@ export const Navbar: React.FC<NavbarProps> = () => {
       {/* Floating Warm Paper PillNav Container */}
       <div 
         className={`flex justify-center py-3 px-4 transition-all duration-300 ${
-          scrolled ? 'backdrop-blur-md bg-[#fdfdf5]/85 shadow-md border-b border-[#e6e3d1]' : ''
+          scrolled ? 'backdrop-blur-md bg-[#f4f0e6]/90 shadow-md border-b border-[#ddd7c7]' : ''
         }`}
       >
-        <div className="border border-[#e6e3d1] rounded-full shadow-sm bg-[#f7f6ec]/90 backdrop-blur-sm p-1">
+        <div className="border border-[#ddd7c7] rounded-full shadow-sm bg-[#fbf8f1]/95 backdrop-blur-sm p-1">
           <PillNav
             logo="/logo.png"
             logoAlt="Rohkris 64"
             items={navItems}
-            baseColor="#f7f6ec"
+            baseColor="#fbf8f1"
             pillColor="#c5de9b"
             pillTextColor="#282828"
             hoveredPillTextColor="#282828"

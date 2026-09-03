@@ -2,10 +2,10 @@
 
 @layer base {
   :root {
-    --paper-bg: #fdfdf5;
-    --paper-card: #f7f6ec;
-    --paper-card-hover: #f1efdf;
-    --paper-border: #e6e3d1;
+    --paper-bg: #f4f0e6;
+    --paper-card: #fbf8f1;
+    --paper-card-hover: #f0ebdc;
+    --paper-border: #ddd7c7;
     --charcoal: #282828;
     --charcoal-muted: #62665a;
     --sage-green: #c5de9b;

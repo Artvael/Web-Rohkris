@@ -35,7 +35,7 @@ const PARTNERS = [
 
 export const PartnersSection: React.FC = () => {
   return (
-    <section className="py-10 border-y border-[#e6e3d1] bg-[#efeedc]/60 relative z-10 overflow-hidden">
+    <section className="py-10 border-y border-[#ddd7c7] bg-[#ebe6d8] relative z-10 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 mb-6 text-center">
         <p className="text-xs font-semibold text-[#62665a] uppercase tracking-widest">
           Pelayanan & Komunitas Terkait
@@ -53,7 +53,7 @@ export const PartnersSection: React.FC = () => {
           hoverSpeed={0}
           scaleOnHover={true}
           fadeOut={true}
-          fadeOutColor="#fdfdf5"
+          fadeOutColor="#f4f0e6"
         />
       </div>
     </section>
