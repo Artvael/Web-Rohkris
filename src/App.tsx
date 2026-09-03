@@ -7,7 +7,6 @@ import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { HeroSection } from './components/sections/HeroSection';
 import { StatsSection } from './components/sections/StatsSection';
-import { ComicScrollytelling } from './components/sections/ComicScrollytelling';
 import { ShowcaseExpandSection } from './components/sections/ShowcaseExpandSection';
 import { ScheduleSection } from './components/sections/ScheduleSection';
 import { GallerySection } from './components/sections/GallerySection';
@@ -89,9 +88,6 @@ export function MainWebsite() {
       <main className="relative z-10 space-y-16 md:space-y-24">
         {/* Hero Section with ParticleText & TextLoop */}
         <HeroSection />
-
-        {/* The Faith Journey - Interactive Comic Scrollytelling ala Santioni Spirits */}
-        <ComicScrollytelling />
 
         {/* Endless Logo Loop Banner */}
         <PartnersSection />

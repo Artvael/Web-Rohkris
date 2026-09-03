@@ -16,7 +16,6 @@ export const Navbar: React.FC<NavbarProps> = () => {
   }, []);
 
   const navItems = [
-    { label: 'Kisah', href: '#kisah-iman' },
     { label: 'Jadwal', href: '#jadwal' },
     { label: 'Galeri', href: '#galeri' },
     { label: 'Lagu', href: '#bank-lagu' },
