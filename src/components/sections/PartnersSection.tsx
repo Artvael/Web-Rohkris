@@ -4,40 +4,40 @@ import { Heart, Users, Shield, Sparkles, Globe, Music, Camera } from 'lucide-rea
 
 const PARTNERS = [
   { 
-    node: <><Heart className="w-6 h-6 text-amber-500" /><span className="font-bold text-stone-200">Rohkris Peduli</span></>,
+    node: <><Heart className="w-5 h-5 text-[#8c6a49]" /><span className="font-semibold text-[#282828]">Rohkris Peduli</span></>,
     title: "Rohkris Peduli"
   },
   { 
-    node: <><Users className="w-6 h-6 text-blue-500" /><span className="font-bold text-stone-200">Komunitas Siswa</span></>,
+    node: <><Users className="w-5 h-5 text-[#3e502c]" /><span className="font-semibold text-[#282828]">Komunitas Siswa</span></>,
     title: "Komunitas Siswa"
   },
   { 
-    node: <><Shield className="w-6 h-6 text-green-500" /><span className="font-bold text-stone-200">Tim Doa</span></>,
+    node: <><Shield className="w-5 h-5 text-[#8c6a49]" /><span className="font-semibold text-[#282828]">Tim Doa</span></>,
     title: "Tim Doa"
   },
   { 
-    node: <><Sparkles className="w-6 h-6 text-yellow-400" /><span className="font-bold text-stone-200">Youth Ministry</span></>,
+    node: <><Sparkles className="w-5 h-5 text-[#8c6a49]" /><span className="font-semibold text-[#282828]">Youth Ministry</span></>,
     title: "Youth Ministry"
   },
   { 
-    node: <><Globe className="w-6 h-6 text-indigo-400" /><span className="font-bold text-stone-200">Jaringan Pelajar</span></>,
+    node: <><Globe className="w-5 h-5 text-[#3e502c]" /><span className="font-semibold text-[#282828]">Jaringan Pelajar</span></>,
     title: "Jaringan Pelajar"
   },
   { 
-    node: <><Music className="w-6 h-6 text-rose-400" /><span className="font-bold text-stone-200">Praise & Worship</span></>,
+    node: <><Music className="w-5 h-5 text-[#8c6a49]" /><span className="font-semibold text-[#282828]">Praise & Worship</span></>,
     title: "Praise & Worship"
   },
   { 
-    node: <><Camera className="w-6 h-6 text-purple-400" /><span className="font-bold text-stone-200">Multimedia</span></>,
+    node: <><Camera className="w-5 h-5 text-[#3e502c]" /><span className="font-semibold text-[#282828]">Multimedia</span></>,
     title: "Multimedia"
   }
 ];
 
 export const PartnersSection: React.FC = () => {
   return (
-    <section className="py-12 border-y border-stone-800/50 bg-[#0c0a09]/80 backdrop-blur-sm relative z-10 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 mb-8 text-center">
-        <p className="text-sm font-semibold text-stone-400 uppercase tracking-widest">
+    <section className="py-10 border-y border-[#e6e3d1] bg-[#efeedc]/60 relative z-10 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 mb-6 text-center">
+        <p className="text-xs font-semibold text-[#62665a] uppercase tracking-widest">
           Pelayanan & Komunitas Terkait
         </p>
       </div>
@@ -53,7 +53,7 @@ export const PartnersSection: React.FC = () => {
           hoverSpeed={0}
           scaleOnHover={true}
           fadeOut={true}
-          fadeOutColor="#0c0a09"
+          fadeOutColor="#fdfdf5"
         />
       </div>
     </section>

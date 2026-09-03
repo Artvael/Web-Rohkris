@@ -4,6 +4,8 @@ import { Counter } from '../reactbits/Counter';
 import { useVisitorCounter } from '../../hooks/useVisitorCounter';
 import { Eye, Users, Church, Heart } from 'lucide-react';
 
+import { SelectionBox } from '../common/SelectionBox';
+
 interface StatsSectionProps {
   prayerCount?: number;
 }
@@ -19,9 +21,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ prayerCount = 95 }) 
       value: visitorCount,
       prefix: '',
       suffix: '',
-      icon: <Eye className="w-5 h-5 text-amber-400" />,
-      color: 'from-amber-500/20 to-amber-600/10',
-      borderColor: 'border-amber-500/30',
+      icon: <Eye className="w-4 h-4 text-[#8c6a49]" />,
     },
     {
       id: 'members',
@@ -30,9 +30,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ prayerCount = 95 }) 
       value: 128,
       prefix: '',
       suffix: '+',
-      icon: <Users className="w-5 h-5 text-amber-300" />,
-      color: 'from-amber-400/20 to-amber-500/10',
-      borderColor: 'border-amber-400/30',
+      icon: <Users className="w-4 h-4 text-[#3e502c]" />,
     },
     {
       id: 'services',
@@ -41,9 +39,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ prayerCount = 95 }) 
       value: 48,
       prefix: '',
       suffix: '+ Sesi',
-      icon: <Church className="w-5 h-5 text-amber-400" />,
-      color: 'from-amber-500/20 to-amber-600/10',
-      borderColor: 'border-amber-500/30',
+      icon: <Church className="w-4 h-4 text-[#8c6a49]" />,
     },
     {
       id: 'prayers',
@@ -52,50 +48,51 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ prayerCount = 95 }) 
       value: prayerCount,
       prefix: '',
       suffix: '+ Doa',
-      icon: <Heart className="w-5 h-5 text-rose-400" />,
-      color: 'from-rose-500/20 to-rose-600/10',
-      borderColor: 'border-rose-500/30',
+      icon: <Heart className="w-4 h-4 text-[#b94a48]" />,
     },
   ];
 
   return (
-    <section className="py-12 px-4 relative z-10">
+    <section className="py-8 px-4 relative z-10">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {stats.map((stat, idx) => (
             <motion.div
               key={stat.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className={`p-5 rounded-2xl bg-gradient-to-b ${stat.color} backdrop-blur-xl border ${stat.borderColor} flex flex-col justify-between hover:border-amber-400/50 transition-all group`}
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="p-2.5 rounded-xl bg-stone-900/80 border border-stone-800 shadow-md group-hover:scale-110 transition-transform">
-                  {stat.icon}
-                </div>
-                {stat.id === 'visitors' && (
-                  <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    Live
-                  </span>
-                )}
-              </div>
+              <SelectionBox className="h-full rounded-2xl">
+                <div className="p-5 rounded-2xl bg-[#f7f6ec] border border-[#e6e3d1] shadow-xs flex flex-col justify-between h-full transition-colors">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="p-2 rounded-xl bg-[#efeedc] border border-[#d6d2bd]">
+                      {stat.icon}
+                    </div>
+                    {stat.id === 'visitors' && (
+                      <span className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#c5de9b]/50 text-[#3e502c] border border-[#3e502c]/20">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#3e502c] animate-ping" />
+                        Live
+                      </span>
+                    )}
+                  </div>
 
-              <div>
-                <div className="text-2xl md:text-3xl font-black text-white font-['Outfit'] tracking-tight mb-0.5">
-                  <Counter
-                    value={stat.value}
-                    duration={2.2}
-                    prefix={stat.prefix}
-                    suffix={stat.suffix}
-                    digitClassName="text-white"
-                  />
+                  <div>
+                    <div className="text-2xl md:text-3xl font-bold text-[#282828] font-['Outfit'] tracking-tight mb-0.5">
+                      <Counter
+                        value={stat.value}
+                        duration={2.2}
+                        prefix={stat.prefix}
+                        suffix={stat.suffix}
+                        digitClassName="text-[#282828]"
+                      />
+                    </div>
+                    <h4 className="text-xs md:text-sm font-semibold text-[#282828]">{stat.label}</h4>
+                    <p className="text-[10px] md:text-xs text-[#62665a] mt-0.5">{stat.sublabel}</p>
+                  </div>
                 </div>
-                <h4 className="text-xs md:text-sm font-bold text-stone-200">{stat.label}</h4>
-                <p className="text-[10px] md:text-xs text-stone-400 mt-0.5">{stat.sublabel}</p>
-              </div>
+              </SelectionBox>
             </motion.div>
           ))}
         </div>

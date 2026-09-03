@@ -128,18 +128,18 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="beranda"
-      className="relative w-full min-h-screen flex flex-col items-center justify-center pt-24 pb-12 overflow-hidden text-emerald-950 font-sans"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center pt-28 pb-12 overflow-hidden text-[#282828] font-sans"
     >
-      {/* Dual Video Background Engine */}
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-stone-100 pointer-events-none">
+      {/* Dual Video Background Engine with Soft Paper Tone Overlay */}
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#fdfdf5] pointer-events-none">
         <video
           ref={v1Ref}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out opacity-25"
           muted
           playsInline
           loop
           preload="auto"
-          style={{ opacity: 1 }}
+          style={{ opacity: 0.25 }}
         >
           <source
             src="https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/nature_peace.mp4"
@@ -148,7 +148,7 @@ export const HeroSection: React.FC = () => {
         </video>
         <video
           ref={v2Ref}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out opacity-0"
           muted
           playsInline
           loop
@@ -160,9 +160,9 @@ export const HeroSection: React.FC = () => {
             type="video/mp4"
           />
         </video>
-        {/* Overlay Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/30 to-transparent mix-blend-screen" />
-        <div className="absolute inset-0 bg-white/20" />
+        {/* Warm Paper Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#fdfdf5]/90 via-[#fdfdf5]/70 to-[#fdfdf5]" />
+        <div className="absolute inset-0 bg-[#fdfdf5]/40" />
       </div>
 
       {/* Main Hero Content with Staggered Entrance */}
@@ -176,10 +176,10 @@ export const HeroSection: React.FC = () => {
           {/* Sub-tagline badge with spring reveal */}
           <motion.div
             variants={badgeVariant}
-            className="flex items-center justify-center gap-3 px-4 py-1.5 rounded-full bg-emerald-950/10 backdrop-blur-md border border-emerald-900/20 shadow-sm"
+            className="flex items-center justify-center gap-2.5 px-4 py-1.5 rounded-full bg-[#efeedc] border border-[#343831] shadow-xs"
           >
-            <div className="w-2 h-2 rounded-full bg-emerald-700 animate-ping"></div>
-            <span className="text-xs sm:text-sm font-bold tracking-[0.25em] uppercase text-emerald-900">
+            <Sparkles className="w-3.5 h-3.5 text-[#8c6a49]" />
+            <span className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-[#343831]">
               Bertumbuh • Berakar • Berbuah
             </span>
           </motion.div>
@@ -187,22 +187,22 @@ export const HeroSection: React.FC = () => {
           {/* Main Headline */}
           <motion.h1
             variants={headlineVariant}
-            className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[1.05] tracking-tight text-emerald-950 text-center"
+            className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[1.05] tracking-tight text-[#282828] text-center"
             style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
           >
             Rohkris <br />
-            <span className="italic font-normal">SMKN 64 Jakarta</span>
+            <span className="italic font-normal text-[#343831]">SMKN 64 Jakarta</span>
           </motion.h1>
 
           {/* Accent Line & Subtitle */}
           <div className="pt-2 flex flex-col items-center w-full">
             <motion.div
               variants={lineVariant}
-              className="w-20 h-[2px] bg-gradient-to-r from-transparent via-emerald-800/50 to-transparent mb-6 mx-auto origin-center"
+              className="w-24 h-[2px] bg-gradient-to-r from-transparent via-[#8c6a49]/60 to-transparent mb-6 mx-auto origin-center"
             ></motion.div>
             <motion.p
               variants={textVariant}
-              className="text-base sm:text-lg text-emerald-900/90 font-medium leading-relaxed max-w-xl text-center"
+              className="text-base sm:text-lg text-[#575a53] font-normal leading-relaxed max-w-xl text-center"
             >
               Membangun generasi muda yang takut akan Tuhan, bertumbuh bersama dalam
               iman, pengharapan, dan kasih di lingkungan SMK Negeri 64 Jakarta.
@@ -220,21 +220,21 @@ export const HeroSection: React.FC = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 350, damping: 20 }}
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-sm font-semibold text-white bg-emerald-950 hover:bg-emerald-900 border border-emerald-800/50 shadow-xl shadow-emerald-950/20 transition-colors group cursor-pointer"
+              className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full text-sm font-semibold text-[#fdfdf5] bg-[#343831] hover:bg-[#282828] border border-[#343831] shadow-md shadow-[#343831]/15 transition-colors group cursor-pointer"
             >
               <span>Jadwal Ibadah</span>
-              <ArrowRight className="w-4 h-4 text-teal-300 transition-transform duration-300 group-hover:translate-x-1.5" />
+              <ArrowRight className="w-4 h-4 text-[#c5de9b] transition-transform duration-300 group-hover:translate-x-1.5" />
             </motion.a>
 
             {/* Secondary CTA */}
             <motion.a
-              href="#lagu"
+              href="#bank-lagu"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 350, damping: 20 }}
-              className="inline-flex items-center gap-2.5 px-7 py-4 rounded-full text-sm font-semibold text-emerald-950 bg-white/80 hover:bg-white border border-emerald-900/20 backdrop-blur-md shadow-md transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-semibold text-[#282828] bg-[#c5de9b] hover:bg-[#b8d488] border border-[#343831] shadow-xs transition-colors cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-emerald-700" />
+              <Sparkles className="w-4 h-4 text-[#343831]" />
               <span>Bank Lagu & Chords</span>
             </motion.a>
           </motion.div>
@@ -248,16 +248,16 @@ export const HeroSection: React.FC = () => {
         transition={{ delay: 1.2, duration: 0.8 }}
         className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-8 pt-4 flex flex-col items-center justify-center mt-auto"
       >
-        <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-emerald-900">
+        <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#575a53]">
           SCROLL TO EXPLORE
         </span>
-        <div className="w-[1px] h-4 bg-emerald-900/30 my-2"></div>
+        <div className="w-[1px] h-4 bg-[#8c6a49]/30 my-2"></div>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-4 h-6 rounded-full border border-emerald-950/60 flex justify-center pt-1"
+          className="w-4 h-6 rounded-full border border-[#343831] flex justify-center pt-1"
         >
-          <div className="w-[2px] h-1.5 bg-emerald-950 rounded-full"></div>
+          <div className="w-[2px] h-1.5 bg-[#343831] rounded-full"></div>
         </motion.div>
       </motion.div>
     </section>

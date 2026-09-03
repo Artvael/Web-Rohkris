@@ -79,14 +79,14 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ items }) => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="space-y-3 max-w-xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/30">
-              <Image className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#efeedc] text-[#343831] border border-[#343831]">
+              <Image className="w-3.5 h-3.5 text-[#8c6a49]" />
               <span>Dokumentasi & Kenangan</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white font-['Outfit'] tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#282828] font-['Outfit'] tracking-tight">
               Galeri Kegiatan Rohkris 64
             </h2>
-            <p className="text-stone-300 text-sm md:text-base leading-relaxed">
+            <p className="text-[#575a53] text-sm md:text-base leading-relaxed">
               Setiap momen persekutuan, pujian, dan kasih persaudaraan siswa-siswi Kristen SMKN 64 Jakarta.
             </p>
           </div>
@@ -94,18 +94,18 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ items }) => {
 
         {/* Category Filters */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
-          <span className="text-xs text-stone-400 font-semibold flex items-center gap-1 shrink-0 mr-1">
-            <Filter className="w-3.5 h-3.5" />
+          <span className="text-xs text-[#62665a] font-semibold flex items-center gap-1 shrink-0 mr-1">
+            <Filter className="w-3.5 h-3.5 text-[#8c6a49]" />
             Kategori:
           </span>
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === cat
-                  ? 'bg-amber-500 text-stone-950 font-bold shadow-md shadow-amber-500/20'
-                  : 'bg-stone-900/80 text-stone-300 hover:text-white border border-stone-800'
+                  ? 'bg-[#c5de9b] text-[#282828] font-bold border border-[#343831] shadow-xs'
+                  : 'bg-[#efeedc] text-[#62665a] hover:text-[#282828] border border-[#e6e3d1]'
               }`}
             >
               {cat}

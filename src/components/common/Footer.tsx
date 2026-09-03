@@ -24,13 +24,13 @@ export const Footer: React.FC<FooterProps> = () => {
   };
 
   return (
-    <footer className="relative border-t border-stone-850 bg-stone-950/90 pt-16 pb-12 px-4 z-10">
+    <footer className="relative border-t border-[#e6e3d1] bg-[#efeedc] pt-16 pb-12 px-4 z-10">
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           {/* Brand Col */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="relative w-11 h-11 rounded-full overflow-hidden p-0.5 bg-gradient-to-tr from-amber-400 via-sky-400 to-amber-500 shadow-lg shrink-0">
+              <div className="relative w-11 h-11 rounded-full overflow-hidden p-0.5 bg-[#fdfdf5] border border-[#343831] shadow-xs shrink-0">
                 <img
                   src="/logo.png"
                   alt="Logo Rohkris SMKN 64 Jakarta"
@@ -38,12 +38,12 @@ export const Footer: React.FC<FooterProps> = () => {
                 />
               </div>
               <div>
-                <h3 className="font-extrabold text-white text-lg font-['Outfit']">ROHKRIS SMKN 64</h3>
-                <p className="text-xs text-stone-400">Persekutuan Rohani Kristen SMKN 64 Jakarta</p>
+                <h3 className="font-bold text-[#282828] text-lg font-['Outfit']">ROHKRIS SMKN 64</h3>
+                <p className="text-xs text-[#575a53]">Persekutuan Rohani Kristen SMKN 64 Jakarta</p>
               </div>
             </div>
 
-            <p className="text-xs text-stone-400 leading-relaxed max-w-sm">
+            <p className="text-xs text-[#575a53] leading-relaxed max-w-sm">
               "Hendaklah kamu berakar di dalam Dia dan dibangun di atas Dia, hendaklah kamu bertambah teguh dalam iman." (Kolose 2:7)
             </p>
 
@@ -52,7 +52,7 @@ export const Footer: React.FC<FooterProps> = () => {
                 href="https://www.instagram.com/rohkris_smkn64?igsi=M25xZXF4MDh5cWIz"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2.5 rounded-xl bg-stone-900 hover:bg-amber-500 text-stone-300 hover:text-stone-950 border border-stone-800 transition-colors"
+                className="p-2.5 rounded-full bg-[#fdfdf5] hover:bg-[#c5de9b] text-[#282828] border border-[#343831] transition-colors shadow-xs"
                 title="Instagram @rohkris_smkn64"
               >
                 <InstagramIcon className="w-4 h-4" />
@@ -61,7 +61,7 @@ export const Footer: React.FC<FooterProps> = () => {
                 href="https://youtube.com"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2.5 rounded-xl bg-stone-900 hover:bg-amber-500 text-stone-300 hover:text-stone-950 border border-stone-800 transition-colors"
+                className="p-2.5 rounded-full bg-[#fdfdf5] hover:bg-[#c5de9b] text-[#282828] border border-[#343831] transition-colors shadow-xs"
                 title="YouTube Channel"
               >
                 <YoutubeIcon className="w-4 h-4" />
@@ -70,7 +70,7 @@ export const Footer: React.FC<FooterProps> = () => {
                 href="https://wa.me"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2.5 rounded-xl bg-stone-900 hover:bg-amber-500 text-stone-300 hover:text-stone-950 border border-stone-800 transition-colors"
+                className="p-2.5 rounded-full bg-[#fdfdf5] hover:bg-[#c5de9b] text-[#282828] border border-[#343831] transition-colors shadow-xs"
                 title="WhatsApp Hubungan Pengurus"
               >
                 <MessageCircle className="w-4 h-4" />
@@ -80,41 +80,41 @@ export const Footer: React.FC<FooterProps> = () => {
 
           {/* Quick Links */}
           <div className="md:col-span-4 space-y-3">
-            <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">Navigasi Cepat</h4>
-            <div className="grid grid-cols-2 gap-2 text-xs text-stone-400">
-              <a href="#beranda" className="hover:text-amber-300 transition-colors">Beranda</a>
-              <a href="#jadwal" className="hover:text-amber-300 transition-colors">Jadwal Ibadah</a>
-              <a href="#galeri" className="hover:text-amber-300 transition-colors">Galeri Foto</a>
-              <a href="#pengurus" className="hover:text-amber-300 transition-colors">Struktur Pengurus</a>
-              <a href="#kotak-doa" className="hover:text-amber-300 transition-colors">Kotak Doa</a>
-              <a href="#lagu" className="hover:text-amber-300 transition-colors">Bank Lagu & Chord</a>
-              <a href="#tentang" className="hover:text-amber-300 transition-colors">Tentang Kami</a>
+            <h4 className="text-xs font-bold text-[#8c6a49] uppercase tracking-wider">Navigasi Cepat</h4>
+            <div className="grid grid-cols-2 gap-2 text-xs text-[#575a53]">
+              <a href="#beranda" className="hover:text-[#282828] transition-colors">Beranda</a>
+              <a href="#jadwal" className="hover:text-[#282828] transition-colors">Jadwal Ibadah</a>
+              <a href="#galeri" className="hover:text-[#282828] transition-colors">Galeri Foto</a>
+              <a href="#pengurus" className="hover:text-[#282828] transition-colors">Struktur Pengurus</a>
+              <a href="#kotak-doa" className="hover:text-[#282828] transition-colors">Kotak Doa</a>
+              <a href="#lagu" className="hover:text-[#282828] transition-colors">Bank Lagu & Chord</a>
+              <a href="#tentang" className="hover:text-[#282828] transition-colors">Tentang Kami</a>
             </div>
           </div>
 
           {/* Scroll Top & Info */}
           <div className="md:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">Rohkris 64</h4>
-            <p className="text-xs text-stone-400 leading-relaxed">
+            <h4 className="text-xs font-bold text-[#8c6a49] uppercase tracking-wider">Rohkris 64</h4>
+            <p className="text-xs text-[#575a53] leading-relaxed">
               Bertumbuh dalam iman, berakar dalam kasih Kristus, dan berbuah bagi sesama.
             </p>
 
             <button
               onClick={scrollToTop}
-              className="w-full py-2.5 px-4 rounded-xl bg-stone-900/80 hover:bg-stone-800 text-stone-300 hover:text-white border border-stone-800 text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer mt-2"
+              className="w-full py-2.5 px-4 rounded-full bg-[#c5de9b] hover:bg-[#b8d488] text-[#282828] border border-[#343831] text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-xs mt-2"
             >
-              <ArrowUp className="w-4 h-4 text-amber-400" />
+              <ArrowUp className="w-4 h-4 text-[#282828]" />
               <span>Kembali ke Atas</span>
             </button>
           </div>
         </div>
 
         {/* Bottom copyright */}
-        <div className="pt-8 border-t border-stone-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+        <div className="pt-8 border-t border-[#e6e3d1] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#62665a]">
           <p>© {new Date().getFullYear()} Rohkris SMKN 64 Jakarta. Dibuat dengan kasih & dedikasi pelayanan.</p>
           <div className="flex items-center gap-1">
             <span>Soli Deo Gloria</span>
-            <Heart className="w-3 h-3 text-rose-500 fill-rose-500" />
+            <Heart className="w-3 h-3 text-[#b94a48] fill-[#b94a48]" />
           </div>
         </div>
       </div>

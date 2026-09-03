@@ -2,72 +2,138 @@
 
 @layer base {
   :root {
-    --font-heading: 'Outfit', 'Cinzel', sans-serif;
-    --font-spiritual: 'Cinzel', serif;
+    --paper-bg: #fdfdf5;
+    --paper-card: #f7f6ec;
+    --paper-card-hover: #f1efdf;
+    --paper-border: #e6e3d1;
+    --charcoal: #282828;
+    --charcoal-muted: #62665a;
+    --sage-green: #c5de9b;
+    --forest-banner: #343831;
+    --warm-gold: #8c6a49;
+    --font-heading: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-editorial: 'Cormorant Garamond', Georgia, serif;
   }
 
   body {
-    background-color: #0c0a09;
-    color: #f5f5f4;
+    background-color: var(--paper-bg);
+    color: var(--charcoal);
     font-family: var(--font-body);
   }
 }
 
-/* Custom scrollbar */
+/* Warm Paper Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1c1917;
+  background: #f1efdf;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #78350f;
-  border-radius: 4px;
+  background: #c5de9b;
+  border: 1px solid #8c6a49;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b45309;
+  background: #a9ca78;
 }
 
-/* Glassmorphism helpers */
-.glass-panel {
-  background: rgba(28, 25, 23, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(245, 158, 11, 0.15);
+/* Editorial Serif Utility */
+.font-editorial {
+  font-family: var(--font-editorial);
 }
 
-.glass-panel-warm {
-  background: linear-gradient(135deg, rgba(41, 37, 36, 0.8) 0%, rgba(28, 25, 23, 0.6) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(251, 191, 36, 0.2);
+/* Paper Card Helpers */
+.paper-card {
+  background-color: var(--paper-card);
+  border: 1px solid var(--paper-border);
+  box-shadow: 0 4px 20px -2px rgba(52, 56, 49, 0.05);
 }
 
-/* Text glow */
-.text-glow-amber {
-  text-shadow: 0 0 20px rgba(245, 158, 11, 0.5), 0 0 40px rgba(217, 119, 6, 0.2);
+.paper-card-hover:hover {
+  background-color: var(--paper-card-hover);
+  border-color: #d6d2bd;
 }
 
-.text-glow-gold {
-  text-shadow: 0 0 25px rgba(251, 191, 36, 0.6), 0 0 50px rgba(245, 158, 11, 0.3);
+/* Vauliys Signature Selection Overlay (8-Handle Figma/Illustrator Bounding Box) */
+.selection-box-container {
+  position: relative;
+}
+
+.selection-overlay {
+  position: absolute;
+  inset: -2px;
+  pointer-events: none;
+  border-radius: 0.75rem;
+  opacity: 0;
+  transform: scale(0.99);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 25;
+  border: 1px solid transparent;
+  background: linear-gradient(to right, #33a1db, #c5be4c) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.group:hover .selection-overlay,
+.selection-box-container:hover .selection-overlay {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Handles */
+.selection-handle {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background-color: #ffffff;
+  border: 1px solid #33a1db;
+  border-radius: 1px;
+  z-index: 30;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.group:hover .selection-handle,
+.selection-box-container:hover .selection-handle {
+  opacity: 1;
+}
+
+/* Corner Handles */
+.selection-handle-tl { top: -3px; left: -3px; border-color: #33a1db; }
+.selection-handle-tr { top: -3px; right: -3px; border-color: #c5be4c; }
+.selection-handle-bl { bottom: -3px; left: -3px; border-color: #33a1db; }
+.selection-handle-br { bottom: -3px; right: -3px; border-color: #c5be4c; }
+
+/* Mid-edge Handles */
+.selection-handle-tm { top: -3px; left: 50%; transform: translateX(-50%); border-color: #74af9a; }
+.selection-handle-bm { bottom: -3px; left: 50%; transform: translateX(-50%); border-color: #74af9a; }
+.selection-handle-ml { top: 50%; left: -3px; transform: translateY(-50%); border-color: #33a1db; }
+.selection-handle-mr { top: 50%; right: -3px; transform: translateY(-50%); border-color: #c5be4c; }
+
+/* Tactile Pill Button */
+.pill-btn {
+  border-radius: 9999px;
+  outline: 1px solid #343831;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pill-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(52, 56, 49, 0.12);
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes scrollDot {
-  0% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(8px); opacity: 0.4; }
-  100% { transform: translateY(0); opacity: 1; }
-}
+
 .animate-fade-in-up {
-  animation: fadeInUp 1s ease-out forwards;
-}
-.animate-scroll-dot {
-  animation: scrollDot 2s infinite;
+  animation: fadeInUp 0.8s ease-out forwards;
 }
