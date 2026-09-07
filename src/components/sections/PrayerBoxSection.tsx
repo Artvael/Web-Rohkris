@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { SelectionBox } from '../common/SelectionBox';
 import { usePrayerStore } from '../../hooks/usePrayerStore';
 import confetti from 'canvas-confetti';
-import { HeartHandshake, Send, Check, Heart, Shield, Sparkles, Tag } from 'lucide-react';
+import { HeartHandshake, Send, Check, Heart, Shield, Sparkles, Tag, Trash2 } from 'lucide-react';
 import type { PrayerRequest } from '../../types';
 
 type PrayerTopic = PrayerRequest['topic'];
@@ -11,7 +11,7 @@ type PrayerTopic = PrayerRequest['topic'];
 interface PrayerBoxSectionProps {}
 
 export const PrayerBoxSection: React.FC<PrayerBoxSectionProps> = () => {
-  const { prayers, addPrayer, toggleAmen, votedIds } = usePrayerStore();
+  const { prayers, addPrayer, toggleAmen, votedIds, deletePrayer } = usePrayerStore();
   const [name, setName] = useState('');
   const [classGrade, setClassGrade] = useState('');
   const [topic, setTopic] = useState<PrayerTopic>('Pendidikan & Ujian');
@@ -55,6 +55,12 @@ export const PrayerBoxSection: React.FC<PrayerBoxSectionProps> = () => {
     setTimeout(() => {
       setSubmitted(false);
     }, 4000);
+  };
+
+  const handleDeletePrayer = (id: string, authorName: string) => {
+    if (window.confirm(`Hapus pokok doa dari "${authorName}"?`)) {
+      deletePrayer(id);
+    }
   };
 
   return (
@@ -235,9 +241,19 @@ export const PrayerBoxSection: React.FC<PrayerBoxSectionProps> = () => {
                           </div>
                         </div>
 
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#efeedc] text-[#343831] border border-[#e6e3d1]">
-                          {prayer.topic}
-                        </span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#efeedc] text-[#343831] border border-[#e6e3d1]">
+                            {prayer.topic}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleDeletePrayer(prayer.id, prayer.name)}
+                            title="Hapus pokok doa ini"
+                            className="p-1 rounded-md text-[#8c6a49]/60 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </div>
 
                       <p className="text-[#3e423a] text-xs md:text-sm leading-relaxed">

@@ -45,7 +45,18 @@ export function usePrayerStore() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY_PRAYERS);
       if (stored) {
-        setPrayers(JSON.parse(stored));
+        const parsed: PrayerRequest[] = JSON.parse(stored);
+        // Otomatis bersihkan konten yang tidak pantas / diminta dihapus
+        const filtered = parsed.filter(
+          (p) =>
+            !p.content?.toLowerCase().includes('vani') &&
+            !p.content?.toLowerCase().includes('wife') &&
+            !(p.name?.toLowerCase().includes('juna') && p.content?.toLowerCase().includes('hope'))
+        );
+        setPrayers(filtered);
+        if (filtered.length !== parsed.length) {
+          localStorage.setItem(STORAGE_KEY_PRAYERS, JSON.stringify(filtered));
+        }
       }
       const voted = localStorage.getItem(STORAGE_KEY_VOTED_AMENS);
       if (voted) {
