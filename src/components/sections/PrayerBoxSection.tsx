@@ -11,7 +11,7 @@ type PrayerTopic = PrayerRequest['topic'];
 interface PrayerBoxSectionProps {}
 
 export const PrayerBoxSection: React.FC<PrayerBoxSectionProps> = () => {
-  const { prayers, addPrayer, toggleAmen, votedIds, deletePrayer } = usePrayerStore();
+  const { prayers, addPrayer, toggleAmen, votedIds, deletePrayer, isLive } = usePrayerStore();
   const [name, setName] = useState('');
   const [classGrade, setClassGrade] = useState('');
   const [topic, setTopic] = useState<PrayerTopic>('Pendidikan & Ujian');
@@ -214,9 +214,21 @@ export const PrayerBoxSection: React.FC<PrayerBoxSectionProps> = () => {
                 <Heart className="w-4 h-4 text-red-500 fill-red-500" />
                 Dinding Doa Persekutuan
               </h3>
-              <span className="text-xs font-black bg-[#fed7aa] text-[#181d18] px-2.5 py-1 rounded-full border border-[#181d18] shadow-[1.5px_1.5px_0px_#181d18]">
-                {prayers.length} Pokok Doa Aktif
-              </span>
+              <div className="flex items-center gap-2">
+                {isLive ? (
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-black bg-[#dcfce7] text-[#166534] px-2.5 py-0.5 rounded-full border border-[#166534]/30 shadow-[1px_1px_0px_#166534]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a] animate-ping" />
+                    <span>Cloud Live</span>
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-[#fef9c3] text-[#854d0e] px-2 py-0.5 rounded-full border border-[#854d0e]/30" title="Hubungkan Supabase untuk sinkronisasi antar perangkat">
+                    <span>● Mode Lokal</span>
+                  </span>
+                )}
+                <span className="text-xs font-black bg-[#fed7aa] text-[#181d18] px-2.5 py-1 rounded-full border border-[#181d18] shadow-[1.5px_1.5px_0px_#181d18]">
+                  {prayers.length} Pokok Doa Aktif
+                </span>
+              </div>
             </div>
 
             <div className="space-y-3.5 max-h-[560px] overflow-y-auto pr-1 no-scrollbar">
