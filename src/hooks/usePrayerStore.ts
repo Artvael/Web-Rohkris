@@ -139,45 +139,52 @@ export function usePrayerStore() {
 
     fetchPrayers();
 
-    const channel = supabase
-      .channel('public:prayer_requests_changes')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'prayer_requests' },
-        (payload) => {
-          if (payload.eventType === 'INSERT') {
-            const newPrayer = mapDbToPrayer(payload.new as DbPrayerRequest);
-            setPrayers((prev) => {
-              if (prev.some((p) => p.id === newPrayer.id)) return prev;
-              const updated = [newPrayer, ...prev];
-              saveLocalBackup(updated);
-              return updated;
-            });
-          } else if (payload.eventType === 'UPDATE') {
-            const updated = mapDbToPrayer(payload.new as DbPrayerRequest);
-            setPrayers((prev) => {
-              const next = prev.map((p) =>
-                p.id === updated.id
-                  ? { ...p, amenCount: updated.amenCount, content: updated.content }
-                  : p
-              );
-              saveLocalBackup(next);
-              return next;
-            });
-          } else if (payload.eventType === 'DELETE') {
-            const deletedId = String(payload.old?.id);
-            setPrayers((prev) => {
-              const next = prev.filter((p) => p.id !== deletedId);
-              saveLocalBackup(next);
-              return next;
-            });
+    const channelName = 'prayers_' + Math.random().toString(36).substring(2, 9);
+    let channel: any = null;
+
+    try {
+      channel = supabase
+        .channel(channelName)
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'prayer_requests' },
+          (payload) => {
+            if (payload.eventType === 'INSERT') {
+              const newPrayer = mapDbToPrayer(payload.new as DbPrayerRequest);
+              setPrayers((prev) => {
+                if (prev.some((p) => p.id === newPrayer.id)) return prev;
+                const updated = [newPrayer, ...prev];
+                saveLocalBackup(updated);
+                return updated;
+              });
+            } else if (payload.eventType === 'UPDATE') {
+              const updated = mapDbToPrayer(payload.new as DbPrayerRequest);
+              setPrayers((prev) => {
+                const next = prev.map((p) =>
+                  p.id === updated.id
+                    ? { ...p, amenCount: updated.amenCount, content: updated.content }
+                    : p
+                );
+                saveLocalBackup(next);
+                return next;
+              });
+            } else if (payload.eventType === 'DELETE') {
+              const deletedId = String(payload.old?.id);
+              setPrayers((prev) => {
+                const next = prev.filter((p) => p.id !== deletedId);
+                saveLocalBackup(next);
+                return next;
+              });
+            }
           }
-        }
-      )
-      .subscribe();
+        )
+        .subscribe();
+    } catch (e) {
+      console.warn('Realtime subscription error:', e);
+    }
 
     return () => {
-      if (supabase) {
+      if (supabase && channel) {
         supabase.removeChannel(channel);
       }
     };
