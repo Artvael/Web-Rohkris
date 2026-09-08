@@ -1,0 +1,449 @@
+/* ==========================================================================
+   StaggeredMenu — Doodle & Toon Figma Edition
+   ========================================================================== */
+
+.staggered-menu-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 60;
+  pointer-events: none;
+}
+
+.staggered-menu-wrapper.fixed-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 60;
+  overflow: hidden;
+}
+
+/* Header container */
+.staggered-menu-header {
+  position: absolute;
+  top: 36px; /* below top announcement bar */
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  pointer-events: none;
+  z-index: 70;
+}
+
+.staggered-menu-header > * {
+  pointer-events: auto;
+}
+
+/* Logo container (hidden or clean) */
+.sm-logo {
+  display: none;
+  align-items: center;
+  user-select: none;
+}
+
+.sm-logo-img {
+  display: block;
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ==========================================================================
+   Toggle Button: Toon Figma Pill Button with Tactile Hard Shadow
+   ========================================================================== */
+.sm-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fbf8f1;
+  border: 2px solid #282828;
+  border-radius: 9999px;
+  box-shadow: 3px 3px 0px #282828;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #282828;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1;
+  overflow: visible;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+}
+
+.sm-toggle:hover {
+  transform: translate(-1.5px, -1.5px);
+  box-shadow: 4.5px 4.5px 0px #282828;
+  background: #ffd269;
+}
+
+.sm-toggle:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1.5px 1.5px 0px #282828;
+}
+
+.sm-toggle:focus-visible {
+  outline: 2px dashed #282828;
+  outline-offset: 3px;
+}
+
+.sm-toggle-textWrap {
+  position: relative;
+  display: inline-block;
+  height: 1.1em;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 44px;
+}
+
+.sm-toggle-textInner {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.sm-toggle-line {
+  display: block;
+  height: 1.1em;
+  line-height: 1.1;
+}
+
+/* Doodle Icon */
+.sm-icon {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.sm-icon-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 2.2px;
+  background: #282828;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+/* ==========================================================================
+   Staggered Pre-Layers (Toon Doodle Underlay Colors)
+   ========================================================================== */
+.sm-prelayers {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: clamp(280px, 36vw, 420px);
+  pointer-events: none;
+  z-index: 65;
+  opacity: 0;
+}
+
+[data-position='left'] .sm-prelayers {
+  right: auto;
+  left: 0;
+}
+
+.sm-prelayer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  transform: translateX(0);
+  opacity: 0;
+  border-left: 2.5px solid #282828;
+}
+
+[data-position='left'] .sm-prelayer {
+  right: auto;
+  left: 0;
+  border-left: none;
+  border-right: 2.5px solid #282828;
+}
+
+/* ==========================================================================
+   Menu Panel: Sketchbook Canvas with Figma Handles & Ink Border
+   ========================================================================== */
+.staggered-menu-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: clamp(280px, 36vw, 420px);
+  height: 100%;
+  background: #fbf8f1;
+  border-left: 3px solid #282828;
+  box-shadow: -8px 0px 0px rgba(40, 40, 40, 0.15);
+  display: flex;
+  flex-direction: column;
+  padding: 5.5rem 2rem 2.5rem 2.2rem;
+  overflow-y: auto;
+  z-index: 66;
+  pointer-events: auto;
+  opacity: 0;
+}
+
+[data-position='left'] .staggered-menu-panel {
+  right: auto;
+  left: 0;
+  border-left: none;
+  border-right: 3px solid #282828;
+  box-shadow: 8px 0px 0px rgba(40, 40, 40, 0.15);
+}
+
+/* Toon Figma Selection Handles on the panel edge */
+.staggered-menu-panel::before,
+.staggered-menu-panel::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border: 2px solid #282828;
+  z-index: 80;
+}
+
+.staggered-menu-panel::before {
+  top: 14px;
+  left: -6px;
+}
+
+.staggered-menu-panel::after {
+  bottom: 14px;
+  left: -6px;
+}
+
+[data-position='left'] .staggered-menu-panel::before,
+[data-position='left'] .staggered-menu-panel::after {
+  left: auto;
+  right: -6px;
+}
+
+.sm-panel-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Cute doodle banner at top of menu */
+.sm-panel-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.8rem;
+  background: #ffd269;
+  color: #282828;
+  border: 1.5px solid #282828;
+  border-radius: 9999px;
+  box-shadow: 2px 2px 0px #282828;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  width: fit-content;
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   Menu Items: Playful Toon Display Typography with Doodle Underline
+   ========================================================================== */
+.sm-panel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sm-panel-itemWrap {
+  position: relative;
+  overflow: hidden;
+  line-height: 1.1;
+  padding: 0.15rem 0;
+}
+
+.sm-panel-item {
+  position: relative;
+  color: #282828;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3.2vw, 2.35rem);
+  cursor: pointer;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  text-decoration: none;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease;
+}
+
+.sm-panel-itemLabel {
+  display: inline-block;
+  position: relative;
+  will-change: transform;
+  transform-origin: 50% 100%;
+}
+
+/* Doodle highlight & tilt on hover */
+.sm-panel-item:hover {
+  color: #181d18;
+  transform: rotate(-1.5deg) translateX(8px);
+}
+
+.sm-panel-item:hover .sm-panel-itemLabel::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 6px;
+  background: var(--sm-accent, #c5de9b);
+  border-radius: 3px;
+  z-index: -1;
+  animation: doodleDraw 0.25s ease-out forwards;
+}
+
+@keyframes doodleDraw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Numbering styled as cute toon badges */
+.sm-panel-list[data-numbering] {
+  counter-reset: smItem;
+}
+
+.sm-panel-list[data-numbering] .sm-panel-item::before {
+  counter-increment: smItem;
+  content: counter(smItem, decimal-leading-zero);
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #282828;
+  background: #e6ded0;
+  border: 1.5px solid #282828;
+  border-radius: 6px;
+  box-shadow: 1.5px 1.5px 0px #282828;
+  padding: 0.15rem 0.35rem;
+  line-height: 1;
+  letter-spacing: 0;
+  pointer-events: none;
+  user-select: none;
+  opacity: var(--sm-num-opacity, 0);
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.sm-panel-item:hover::before {
+  background: #ffd269;
+  transform: rotate(5deg) scale(1.08);
+}
+
+/* ==========================================================================
+   Socials Section: Doodle Sticker Pills
+   ========================================================================== */
+.sm-socials {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 2px dashed #ddd7c7;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sm-socials-title {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8c6a49;
+}
+
+.sm-socials-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.sm-socials-item {
+  margin: 0;
+}
+
+.sm-socials-link {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #282828;
+  text-decoration: none;
+  background: #f7f6ec;
+  border: 1.5px solid #282828;
+  box-shadow: 2px 2px 0px #282828;
+  border-radius: 9999px;
+  padding: 0.35rem 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+}
+
+.sm-socials-link:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px #282828;
+  background: #c5de9b;
+}
+
+.sm-socials-link:active {
+  transform: translate(0.5px, 0.5px);
+  box-shadow: 1px 1px 0px #282828;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 640px) {
+  .staggered-menu-panel {
+    width: 100%;
+    left: 0;
+    right: 0;
+    padding: 5rem 1.5rem 2rem 1.5rem;
+    border-left: none;
+    border-right: none;
+  }
+
+  .sm-prelayers {
+    width: 100%;
+  }
+
+  .sm-panel-item {
+    font-size: 1.65rem;
+  }
+}
+
