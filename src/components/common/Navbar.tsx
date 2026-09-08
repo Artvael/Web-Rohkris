@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { PillNav } from '../reactbits/PillNav';
 import { StaggeredMenu } from '../reactbits/StaggeredMenu';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Edit3 } from 'lucide-react';
+import { useUserCursorName } from '../../hooks/useUserCursorName';
 
 interface NavbarProps {}
 
@@ -23,6 +24,15 @@ const SOCIAL_ITEMS = [
 
 export const Navbar: React.FC<NavbarProps> = () => {
   const [scrolled, setScrolled] = useState(false);
+  const { name: cursorName, setName: setCursorName } = useUserCursorName();
+
+  const handleEditCursorName = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const promptValue = window.prompt('Ubah nama pada kursor Anda:', cursorName);
+    if (promptValue !== null) {
+      setCursorName(promptValue);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,10 +87,19 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pointer-events-none">
         {/* Top Announcement Banner (Toon Neobrutalist Ticker) */}
-        <div className="bg-[#ffd269] text-[#181d18] text-center py-2 px-4 text-xs font-black tracking-wider flex items-center justify-center gap-2 border-b-2.5 border-[#181d18] shadow-[0px_2px_0px_#181d18] pointer-events-auto select-none">
+        <div className="bg-[#ffd269] text-[#181d18] text-center py-1.5 px-4 text-xs font-black tracking-wider flex items-center justify-center gap-2 border-b-2.5 border-[#181d18] shadow-[0px_2px_0px_#181d18] pointer-events-auto select-none">
           <Sparkles className="w-3.5 h-3.5 text-[#181d18] animate-spin" style={{ animationDuration: '6s' }} />
-          <span>✦ PERSEKUTUAN ROHANI KRISTEN SMKN 64 JAKARTA • BERTUMBUH, BERAKAR, & BERBUAH ✦</span>
+          <span className="truncate">✦ PERSEKUTUAN ROHANI KRISTEN SMKN 64 JAKARTA • BERTUMBUH, BERAKAR, & BERBUAH ✦</span>
           <Sparkles className="w-3.5 h-3.5 text-[#181d18] animate-spin" style={{ animationDuration: '6s' }} />
+
+          <button
+            onClick={handleEditCursorName}
+            title="Klik untuk mengubah nama di label kursor Anda"
+            className="hidden md:inline-flex items-center gap-1.5 ml-2.5 px-2.5 py-0.5 rounded-full bg-[#F39C2A] text-white text-[11px] font-bold border border-[#181d18] shadow-[1.5px_1.5px_0px_#181d18] hover:scale-105 active:scale-95 transition-transform cursor-pointer"
+          >
+            <span>🏷️ {cursorName}</span>
+            <Edit3 className="w-2.5 h-2.5 text-white opacity-90" />
+          </button>
         </div>
 
         {/* Floating Toon Figma Toolbar Container */}

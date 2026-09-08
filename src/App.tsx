@@ -20,6 +20,8 @@ import { PartnersSection } from './components/sections/PartnersSection';
 import { useGalleryStore } from './hooks/useGalleryStore';
 import { useScheduleStore } from './hooks/useScheduleStore';
 import { usePrayerStore } from './hooks/usePrayerStore';
+import { useUserCursorName } from './hooks/useUserCursorName';
+import { UserCursor } from './components/ui/user-cursor';
 
 const SanityStudio = lazy(() =>
   import('./components/admin/SanityStudio').then((module) => ({
@@ -31,6 +33,7 @@ export function MainWebsite() {
   const { items: galleryItems } = useGalleryStore();
   const { events: scheduleEvents } = useScheduleStore();
   const { prayers: prayerRequests } = usePrayerStore();
+  const { name: cursorName } = useUserCursorName();
 
   useEffect(() => {
     // Active Theory & Santioni Spirits-inspired smooth momentum scrolling
@@ -57,6 +60,22 @@ export function MainWebsite() {
 
   return (
     <div className="relative min-h-screen bg-[#f4f0e6] text-[#282828] selection:bg-[#c5de9b] selection:text-[#282828] overflow-x-hidden font-['Plus_Jakarta_Sans',sans-serif]">
+      {/* 0. React Bits Pro User Cursor (A custom cursor with a little name tag that follows along) */}
+      <UserCursor
+        fullScreen={true}
+        name={cursorName}
+        color="#F39C2A"
+        textColor="#ffffff"
+        size={28}
+        tilt={-14}
+        directionAwareTilt={true}
+        labelTiltStrength={8}
+        trigger="always"
+        showLabel={true}
+        hideNativeCursor={true}
+        zIndex={99999}
+      />
+
       {/* 1. Full-Screen WebGL Topography Background (Organic Warm Elevation Contours) */}
       <div className="fixed inset-0 pointer-events-none z-0 opacity-45">
         <Topography

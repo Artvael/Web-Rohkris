@@ -42,6 +42,12 @@
   background: #a9ca78;
 }
 
+/* Hide Native Cursor when fullScreen custom cursor is enabled */
+html.hide-native-cursor,
+html.hide-native-cursor * {
+  cursor: none !important;
+}
+
 /* Editorial Serif Utility */
 .font-editorial {
   font-family: var(--font-editorial);
