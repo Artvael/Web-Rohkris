@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/fiber": "^9.7.0",
     "@sanity/client": "^8.2.0",
     "@sanity/image-url": "^2.1.1",
     "@sanity/vision": "^6.10.1",
+    "@types/three": "^0.185.4",
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "framer-motion": "^13.1.0",
@@ -25,7 +27,8 @@
     "react-router-dom": "^7.18.2",
     "sanity": "^6.10.1",
     "styled-components": "^6.5.3",
-    "tailwind-merge": "^3.6.0"
+    "tailwind-merge": "^3.6.0",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
