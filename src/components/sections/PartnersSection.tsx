@@ -35,11 +35,11 @@ const PARTNERS = [
 
 export const PartnersSection: React.FC = () => {
   return (
-    <section className="py-10 border-y border-[#ddd7c7] bg-[#ebe6d8] relative z-10 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 mb-6 text-center">
-        <p className="text-xs font-semibold text-[#62665a] uppercase tracking-widest">
-          Pelayanan & Komunitas Terkait
-        </p>
+    <section className="py-10 border-y-[2.5px] border-[#181d18] bg-[#ffd269]/20 relative z-10 overflow-hidden shadow-[0px_3px_0px_#181d18]">
+      <div className="max-w-6xl mx-auto px-4 mb-5 text-center">
+        <span className="inline-block px-3 py-1 rounded-full bg-[#181d18] text-[#ffd269] text-[11px] font-black uppercase tracking-widest border border-[#181d18] shadow-[2px_2px_0px_#181d18]">
+          ✦ Pelayanan & Komunitas Terkait ✦
+        </span>
       </div>
 
       <div className="w-full relative h-[60px]">

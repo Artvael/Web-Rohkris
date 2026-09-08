@@ -6,17 +6,17 @@ import { Sparkles } from 'lucide-react';
 interface NavbarProps {}
 
 const MENU_ITEMS = [
-  { label: 'Beranda', link: '#hero', ariaLabel: 'Menuju Beranda' },
+  { label: 'Beranda', link: '#beranda', ariaLabel: 'Menuju Beranda' },
   { label: 'Jadwal', link: '#jadwal', ariaLabel: 'Jadwal Ibadah Rohkris 64' },
   { label: 'Galeri', link: '#galeri', ariaLabel: 'Galeri Foto & Momen' },
   { label: 'Lagu & Chords', link: '#bank-lagu', ariaLabel: 'Kumpulan Lagu Pujian' },
   { label: 'Pengurus', link: '#pengurus', ariaLabel: 'Struktur Kepengurusan' },
   { label: 'Kotak Doa', link: '#kotak-doa', ariaLabel: 'Kirimkan Permohonan Doa' },
-  { label: 'Tentang', link: '#tentang-kami', ariaLabel: 'Visi Misi SMKN 64' },
+  { label: 'Tentang', link: '#tentang', ariaLabel: 'Visi Misi SMKN 64' },
 ];
 
 const SOCIAL_ITEMS = [
-  { label: '✦ Instagram', link: 'https://instagram.com/rohkris64' },
+  { label: '✦ Instagram', link: 'https://instagram.com/rohkris_smkn64' },
   { label: '★ YouTube', link: 'https://youtube.com' },
   { label: '✦ Kotak Doa', link: '#kotak-doa' },
 ];
@@ -32,12 +32,30 @@ export const Navbar: React.FC<NavbarProps> = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavScroll = (href: string) => {
+    if (href === '#beranda' || href === '#hero' || href === '#top' || href === '/') {
+      if ((window as any).__lenis) {
+        (window as any).__lenis.scrollTo(0);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } else {
+      const el = document.querySelector(href);
+      if ((window as any).__lenis && el) {
+        (window as any).__lenis.scrollTo(href);
+      } else if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   const navItems = [
-    { label: 'Jadwal', href: '#jadwal' },
-    { label: 'Galeri', href: '#galeri' },
-    { label: 'Lagu', href: '#bank-lagu' },
-    { label: 'Divisi', href: '#pengurus' },
-    { label: 'Kotak Doa', href: '#kotak-doa' },
+    { label: 'Beranda', href: '#beranda', onClick: () => handleNavScroll('#beranda') },
+    { label: 'Jadwal', href: '#jadwal', onClick: () => handleNavScroll('#jadwal') },
+    { label: 'Galeri', href: '#galeri', onClick: () => handleNavScroll('#galeri') },
+    { label: 'Lagu', href: '#bank-lagu', onClick: () => handleNavScroll('#bank-lagu') },
+    { label: 'Divisi', href: '#pengurus', onClick: () => handleNavScroll('#pengurus') },
+    { label: 'Kotak Doa', href: '#kotak-doa', onClick: () => handleNavScroll('#kotak-doa') },
   ];
 
   return (
@@ -51,35 +69,41 @@ export const Navbar: React.FC<NavbarProps> = () => {
         displayItemNumbering={true}
         colors={['#ffd269', '#c5de9b', '#343831']}
         accentColor="#c5de9b"
-        menuButtonColor="#282828"
-        openMenuButtonColor="#282828"
+        menuButtonColor="#181d18"
+        openMenuButtonColor="#181d18"
         changeMenuColorOnOpen={false}
         isFixed={true}
       />
 
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pointer-events-none">
-        {/* Top Announcement Banner (Vauliys Style) */}
-        <div className="bg-[#343831] text-[#fdfdf5] text-center py-2 px-4 text-xs tracking-wider flex items-center justify-center gap-2 border-b border-[#282828] pointer-events-auto">
-          <Sparkles className="w-3 h-3 text-[#c5de9b] animate-pulse" />
-          <span className="font-medium">Persekutuan Rohani Kristen SMKN 64 Jakarta • Bertumbuh, Berakar, & Berbuah</span>
-          <Sparkles className="w-3 h-3 text-[#c5de9b] animate-pulse" />
+        {/* Top Announcement Banner (Toon Neobrutalist Ticker) */}
+        <div className="bg-[#ffd269] text-[#181d18] text-center py-2 px-4 text-xs font-black tracking-wider flex items-center justify-center gap-2 border-b-2.5 border-[#181d18] shadow-[0px_2px_0px_#181d18] pointer-events-auto select-none">
+          <Sparkles className="w-3.5 h-3.5 text-[#181d18] animate-spin" style={{ animationDuration: '6s' }} />
+          <span>✦ PERSEKUTUAN ROHANI KRISTEN SMKN 64 JAKARTA • BERTUMBUH, BERAKAR, & BERBUAH ✦</span>
+          <Sparkles className="w-3.5 h-3.5 text-[#181d18] animate-spin" style={{ animationDuration: '6s' }} />
         </div>
 
-        {/* Floating Warm Paper PillNav Container */}
+        {/* Floating Toon Figma Toolbar Container */}
         <div 
           className={`flex justify-center py-3 px-4 transition-all duration-300 ${
-            scrolled ? 'backdrop-blur-md bg-[#f4f0e6]/90 shadow-md border-b border-[#ddd7c7]' : ''
+            scrolled ? 'backdrop-blur-md bg-[#f4f0e6]/80' : ''
           }`}
         >
-          <div className="border border-[#ddd7c7] rounded-full shadow-sm bg-[#fbf8f1]/95 backdrop-blur-sm p-1 pointer-events-auto">
+          <div className="relative border-[2.5px] border-[#181d18] rounded-full shadow-[4px_4px_0px_#181d18] bg-[#ffffff] p-1 pointer-events-auto transition-transform hover:scale-[1.01]">
+            {/* Figma Selection Handles on Toolbar */}
+            <span className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-white border border-[#181d18] rounded-xs shadow-[1px_1px_0px_#181d18]" />
+            <span className="absolute -right-1.5 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-white border border-[#181d18] rounded-xs shadow-[1px_1px_0px_#181d18]" />
+            <span className="absolute left-1/2 -top-1.5 -translate-x-1/2 w-2.5 h-2.5 bg-white border border-[#181d18] rounded-xs shadow-[1px_1px_0px_#181d18]" />
+            <span className="absolute left-1/2 -bottom-1.5 -translate-x-1/2 w-2.5 h-2.5 bg-white border border-[#181d18] rounded-xs shadow-[1px_1px_0px_#181d18]" />
+
             <PillNav
               logo="/logo.png"
               logoAlt="Rohkris 64"
               items={navItems}
-              baseColor="#fbf8f1"
-              pillColor="#c5de9b"
-              pillTextColor="#282828"
-              hoveredPillTextColor="#282828"
+              baseColor="#ffffff"
+              pillColor="#ffd269"
+              pillTextColor="#181d18"
+              hoveredPillTextColor="#181d18"
             />
           </div>
         </div>

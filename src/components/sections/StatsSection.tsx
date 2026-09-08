@@ -52,6 +52,13 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ prayerCount = 95 }) 
     },
   ];
 
+  const statColors = [
+    'bg-[#fef9c3]', // Toon Yellow
+    'bg-[#dcfce7]', // Toon Green
+    'bg-[#e0f2fe]', // Toon Sky Blue
+    'bg-[#ffedd5]', // Toon Peach
+  ];
+
   return (
     <section className="py-8 px-4 relative z-10">
       <div className="max-w-6xl mx-auto">
@@ -65,31 +72,31 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ prayerCount = 95 }) 
               transition={{ duration: 0.4, delay: idx * 0.08 }}
             >
               <SelectionBox className="h-full rounded-2xl">
-                <div className="p-5 rounded-2xl bg-[#f7f6ec] border border-[#e6e3d1] shadow-xs flex flex-col justify-between h-full transition-colors">
+                <div className={`p-5 rounded-2xl ${statColors[idx % statColors.length]} border-[2.5px] border-[#181d18] shadow-[4px_4px_0px_#181d18] flex flex-col justify-between h-full transition-transform hover:-translate-y-1`}>
                   <div className="flex items-center justify-between mb-3">
-                    <div className="p-2 rounded-xl bg-[#efeedc] border border-[#d6d2bd]">
+                    <div className="p-2 rounded-xl bg-[#ffffff] border-2 border-[#181d18] shadow-[2px_2px_0px_#181d18]">
                       {stat.icon}
                     </div>
                     {stat.id === 'visitors' && (
-                      <span className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#c5de9b]/50 text-[#3e502c] border border-[#3e502c]/20">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#3e502c] animate-ping" />
-                        Live
+                      <span className="flex items-center gap-1.5 text-[10px] font-black px-2.5 py-0.5 rounded-full bg-[#181d18] text-[#ffd269] border border-[#181d18] shadow-[1.5px_1.5px_0px_#181d18]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-ping" />
+                        LIVE
                       </span>
                     )}
                   </div>
 
                   <div>
-                    <div className="text-2xl md:text-3xl font-bold text-[#282828] font-['Outfit'] tracking-tight mb-0.5">
+                    <div className="text-2xl md:text-3xl font-black text-[#181d18] font-['Outfit'] tracking-tight mb-0.5">
                       <Counter
                         value={stat.value}
                         duration={2.2}
                         prefix={stat.prefix}
                         suffix={stat.suffix}
-                        digitClassName="text-[#282828]"
+                        digitClassName="text-[#181d18]"
                       />
                     </div>
-                    <h4 className="text-xs md:text-sm font-semibold text-[#282828]">{stat.label}</h4>
-                    <p className="text-[10px] md:text-xs text-[#62665a] mt-0.5">{stat.sublabel}</p>
+                    <h4 className="text-xs md:text-sm font-extrabold text-[#181d18]">{stat.label}</h4>
+                    <p className="text-[10px] md:text-xs text-[#52525b] font-medium mt-0.5">{stat.sublabel}</p>
                   </div>
                 </div>
               </SelectionBox>

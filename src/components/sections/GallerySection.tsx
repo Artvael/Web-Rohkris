@@ -79,14 +79,14 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ items }) => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="space-y-3 max-w-xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#efeedc] text-[#343831] border border-[#343831]">
-              <Image className="w-3.5 h-3.5 text-[#8c6a49]" />
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black bg-[#ffd269] text-[#181d18] border-2 border-[#181d18] shadow-[2.5px_2.5px_0px_#181d18]">
+              <Image className="w-3.5 h-3.5 text-[#181d18]" />
               <span>Dokumentasi & Kenangan</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#282828] font-['Outfit'] tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#181d18] font-['Outfit'] tracking-tight">
               Galeri Kegiatan Rohkris 64
             </h2>
-            <p className="text-[#575a53] text-sm md:text-base leading-relaxed">
+            <p className="text-[#343831] text-sm md:text-base leading-relaxed font-medium">
               Setiap momen persekutuan, pujian, dan kasih persaudaraan siswa-siswi Kristen SMKN 64 Jakarta.
             </p>
           </div>
@@ -94,18 +94,18 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ items }) => {
 
         {/* Category Filters */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
-          <span className="text-xs text-[#62665a] font-semibold flex items-center gap-1 shrink-0 mr-1">
-            <Filter className="w-3.5 h-3.5 text-[#8c6a49]" />
+          <span className="text-xs text-[#181d18] font-black uppercase tracking-wider flex items-center gap-1 shrink-0 mr-1">
+            <Filter className="w-3.5 h-3.5 text-[#181d18]" />
             Kategori:
           </span>
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === cat
-                  ? 'bg-[#c5de9b] text-[#282828] font-bold border border-[#343831] shadow-xs'
-                  : 'bg-[#efeedc] text-[#62665a] hover:text-[#282828] border border-[#e6e3d1]'
+                  ? 'bg-[#ffd269] text-[#181d18] font-black border-2 border-[#181d18] shadow-[2px_2px_0px_#181d18]'
+                  : 'bg-[#ffffff] text-[#181d18]/70 hover:text-[#181d18] border border-[#181d18] hover:bg-[#fef9c3]'
               }`}
             >
               {cat}
@@ -113,18 +113,19 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ items }) => {
           ))}
         </div>
 
-        {/* Accordion Gallery Component */}
+        {/* Accordion Gallery Component with Toon Frame */}
         <motion.div
           key={selectedCategory}
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
+          className="p-3 md:p-4 rounded-3xl bg-[#ffffff] border-[2.5px] border-[#181d18] shadow-[6px_6px_0px_#181d18]"
         >
           <AccordionGallery items={filteredItems} />
         </motion.div>
 
-        <div className="text-center text-xs text-stone-400 flex items-center justify-center gap-1.5">
-          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+        <div className="text-center text-xs text-[#343831] font-bold flex items-center justify-center gap-1.5">
+          <Sparkles className="w-3.5 h-3.5 text-[#181d18]" />
           <span>Klik salah satu foto untuk memperluas tampilan atau melihat foto penuh.</span>
         </div>
       </div>

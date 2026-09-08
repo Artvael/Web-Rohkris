@@ -128,7 +128,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="beranda"
-      className="relative w-full min-h-screen flex flex-col items-center justify-center pt-28 pb-12 overflow-hidden text-[#fdfdf5] font-sans"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center pt-28 pb-12 overflow-hidden text-[#fdfdf5] font-sans border-b-[3px] border-[#181d18]"
     >
       {/* Dual Video Background Engine with Vivid Visibility */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#131713] pointer-events-none">
@@ -173,14 +173,14 @@ export const HeroSection: React.FC = () => {
           animate="visible"
           className="max-w-3xl mx-auto space-y-6 flex flex-col items-center"
         >
-          {/* Sub-tagline badge with spring reveal */}
+          {/* Sub-tagline badge with Toon Neobrutalist flair */}
           <motion.div
             variants={badgeVariant}
-            className="flex items-center justify-center gap-2.5 px-4 py-1.5 rounded-full bg-[#181d18]/80 backdrop-blur-md border border-[#c5de9b]/40 shadow-sm"
+            className="flex items-center justify-center gap-2.5 px-4 py-1.5 rounded-full bg-[#ffd269] text-[#181d18] border-2 border-[#181d18] shadow-[3px_3px_0px_#181d18]"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#c5de9b]" />
-            <span className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-[#c5de9b]">
-              Bertumbuh • Berakar • Berbuah
+            <Sparkles className="w-4 h-4 text-[#181d18]" />
+            <span className="text-xs sm:text-sm font-black tracking-[0.15em] uppercase text-[#181d18]">
+              ✦ Bertumbuh • Berakar • Berbuah ✦
             </span>
           </motion.div>
 
@@ -198,18 +198,18 @@ export const HeroSection: React.FC = () => {
           <div className="pt-2 flex flex-col items-center w-full">
             <motion.div
               variants={lineVariant}
-              className="w-24 h-[2px] bg-gradient-to-r from-transparent via-[#c5de9b]/70 to-transparent mb-6 mx-auto origin-center"
+              className="w-28 h-[3px] bg-[#ffd269] mb-6 mx-auto rounded-full border border-[#181d18]"
             ></motion.div>
             <motion.p
               variants={textVariant}
-              className="text-base sm:text-lg text-[#e8e4d8] font-normal leading-relaxed max-w-xl text-center drop-shadow-md"
+              className="text-base sm:text-lg text-[#f4f0e6] font-medium leading-relaxed max-w-xl text-center drop-shadow-md"
             >
               Membangun generasi muda yang takut akan Tuhan, bertumbuh bersama dalam
               iman, pengharapan, dan kasih di lingkungan SMK Negeri 64 Jakarta.
             </motion.p>
           </div>
 
-          {/* Action Buttons with Micro-interactions */}
+          {/* Action Buttons with Toon Neobrutalist Pop */}
           <motion.div
             variants={buttonVariant}
             className="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-6"
@@ -220,7 +220,7 @@ export const HeroSection: React.FC = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 350, damping: 20 }}
-              className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full text-sm font-semibold text-[#181d18] bg-[#c5de9b] hover:bg-[#b8d488] border border-[#343831] shadow-xl transition-colors group cursor-pointer"
+              className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full text-sm font-black text-[#181d18] bg-[#c5de9b] hover:bg-[#b8d488] border-[2.5px] border-[#181d18] shadow-[4.5px_4.5px_0px_#181d18] hover:shadow-[6px_6px_0px_#181d18] transition-all group cursor-pointer"
             >
               <span>Jadwal Ibadah</span>
               <ArrowRight className="w-4 h-4 text-[#181d18] transition-transform duration-300 group-hover:translate-x-1.5" />
@@ -232,9 +232,9 @@ export const HeroSection: React.FC = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 350, damping: 20 }}
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-semibold text-[#fdfdf5] bg-[#181d18]/80 hover:bg-[#181d18] border border-[#e8e4d8]/30 backdrop-blur-md shadow-md transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-black text-[#181d18] bg-[#ffffff] hover:bg-[#fbf8f1] border-[2.5px] border-[#181d18] shadow-[4.5px_4.5px_0px_#181d18] hover:shadow-[6px_6px_0px_#181d18] transition-all cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-[#c5de9b]" />
+              <Sparkles className="w-4 h-4 text-[#181d18]" />
               <span>Bank Lagu & Chords</span>
             </motion.a>
           </motion.div>

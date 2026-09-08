@@ -360,6 +360,32 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     }
   }, [playClose, animateIcon, animateColor, animateText, onMenuClose]);
 
+  const handleLinkClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+      closeMenu();
+      if (link.startsWith('#') || link === '/') {
+        e.preventDefault();
+        setTimeout(() => {
+          if (link === '#beranda' || link === '#hero' || link === '#top' || link === '/') {
+            if ((window as any).__lenis) {
+              (window as any).__lenis.scrollTo(0);
+            } else {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          } else {
+            const target = document.querySelector(link);
+            if ((window as any).__lenis && target) {
+              (window as any).__lenis.scrollTo(link);
+            } else if (target) {
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }, 150);
+      }
+    },
+    [closeMenu]
+  );
+
   useEffect(() => {
     if (!closeOnClickAway || !open) return;
 
@@ -452,7 +478,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     href={it.link}
                     aria-label={it.ariaLabel}
                     data-index={idx + 1}
-                    onClick={() => closeMenu()}
+                    onClick={(e) => handleLinkClick(e, it.link)}
                   >
                     <span className="sm-panel-itemLabel">{it.label}</span>
                   </a>
@@ -478,8 +504,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                       target={s.link.startsWith('#') ? undefined : '_blank'}
                       rel="noopener noreferrer"
                       className="sm-socials-link"
-                      onClick={() => {
-                        if (s.link.startsWith('#')) closeMenu();
+                      onClick={(e) => {
+                        if (s.link.startsWith('#')) handleLinkClick(e, s.link);
                       }}
                     >
                       {s.label}

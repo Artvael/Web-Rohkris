@@ -39,14 +39,14 @@ export const AboutSection: React.FC = () => {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center space-y-3 max-w-2xl mx-auto"
         >
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#efeedc] text-[#343831] border border-[#343831]">
-            <School className="w-3.5 h-3.5 text-[#8c6a49]" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black bg-[#ffd269] text-[#181d18] border-2 border-[#181d18] shadow-[2.5px_2.5px_0px_#181d18]">
+            <School className="w-3.5 h-3.5 text-[#181d18]" />
             <span>Visi & Profil Persekutuan</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#282828] font-['Outfit'] tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[#181d18] font-['Outfit'] tracking-tight">
             Tentang Rohkris SMKN 64
           </h2>
-          <p className="text-[#575a53] text-sm md:text-base leading-relaxed">
+          <p className="text-[#343831] text-sm md:text-base leading-relaxed font-medium">
             Wadah pembinaan rohani dan persekutuan siswa-siswi beragama Kristen di SMK Negeri 64 Jakarta.
           </p>
         </motion.div>
@@ -60,13 +60,13 @@ export const AboutSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <SelectionBox className="h-full rounded-3xl">
-              <div className="p-8 space-y-4 h-full rounded-3xl bg-[#f7f6ec] border border-[#e6e3d1] shadow-md">
-                <div className="inline-flex p-3 rounded-2xl bg-[#efeedc] text-[#8c6a49] border border-[#d6d2bd]">
-                  <Target className="w-6 h-6" />
+              <div className="p-8 space-y-4 h-full rounded-3xl bg-[#ffffff] border-[2.5px] border-[#181d18] shadow-[6px_6px_0px_#181d18]">
+                <div className="inline-flex p-3 rounded-2xl bg-[#ffd269] text-[#181d18] border-2 border-[#181d18] shadow-[2px_2px_0px_#181d18]">
+                  <Target className="w-6 h-6 text-[#181d18]" />
                 </div>
-                <h3 className="text-2xl font-bold text-[#282828] font-['Outfit']">Visi Pelayanan</h3>
-                <p className="text-[#575a53] text-sm leading-relaxed">
-                  Mewujudkan generasi muda Kristen SMKN 64 Jakarta yang <strong className="text-[#282828]">berakar kuat di dalam firman Tuhan</strong>, <strong className="text-[#282828]">bertumbuh dalam karakter Kristus</strong>, dan <strong className="text-[#282828]">berbuah lebat</strong> menjadi terang dan garam di sekolah, keluarga, dan masyarakat.
+                <h3 className="text-2xl font-black text-[#181d18] font-['Outfit']">Visi Pelayanan</h3>
+                <p className="text-[#343831] text-sm leading-relaxed font-medium">
+                  Mewujudkan generasi muda Kristen SMKN 64 Jakarta yang <strong className="text-[#181d18]">berakar kuat di dalam firman Tuhan</strong>, <strong className="text-[#181d18]">bertumbuh dalam karakter Kristus</strong>, dan <strong className="text-[#181d18]">berbuah lebat</strong> menjadi terang dan garam di sekolah, keluarga, dan masyarakat.
                 </p>
               </div>
             </SelectionBox>
@@ -79,12 +79,12 @@ export const AboutSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <SelectionBox className="h-full rounded-3xl">
-              <div className="p-8 space-y-4 h-full rounded-3xl bg-[#f7f6ec] border border-[#e6e3d1] shadow-md">
-                <div className="inline-flex p-3 rounded-2xl bg-[#efeedc] text-[#8c6a49] border border-[#d6d2bd]">
-                  <Compass className="w-6 h-6" />
+              <div className="p-8 space-y-4 h-full rounded-3xl bg-[#ffffff] border-[2.5px] border-[#181d18] shadow-[6px_6px_0px_#181d18]">
+                <div className="inline-flex p-3 rounded-2xl bg-[#c5de9b] text-[#181d18] border-2 border-[#181d18] shadow-[2px_2px_0px_#181d18]">
+                  <Compass className="w-6 h-6 text-[#181d18]" />
                 </div>
-                <h3 className="text-2xl font-bold text-[#282828] font-['Outfit']">Misi Pelayanan</h3>
-                <ul className="text-[#575a53] text-sm space-y-2.5 leading-relaxed list-disc list-inside">
+                <h3 className="text-2xl font-black text-[#181d18] font-['Outfit']">Misi Pelayanan</h3>
+                <ul className="text-[#343831] text-sm space-y-2.5 leading-relaxed list-disc list-inside font-medium">
                   <li>Menyelenggarakan ibadah rutin Jumat yang membangun dan penuh hadirat Tuhan.</li>
                   <li>Menumbuhkan kecintaan membaca firman Tuhan melalui renungan harian dan saat teduh.</li>
                   <li>Mempererat tali persaudaraan melalui persekutuan kasih, ibadah padang, dan retreat.</li>
@@ -102,7 +102,7 @@ export const AboutSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-xl font-bold text-[#282828] text-center font-['Outfit']"
+            className="text-xl font-black text-[#181d18] text-center font-['Outfit'] tracking-tight"
           >
             Nilai-Nilai Utama (Core Values)
           </motion.h3>
@@ -118,12 +118,12 @@ export const AboutSection: React.FC = () => {
                 className="h-full"
               >
                 <SelectionBox className="h-full rounded-2xl">
-                  <div className="p-5 rounded-2xl bg-[#f7f6ec] border border-[#e6e3d1] shadow-xs space-y-2.5 h-full">
-                    <div className="p-2.5 rounded-xl bg-[#ffffff] w-fit border border-[#e6e3d1] shadow-xs">
+                  <div className="p-5 rounded-2xl bg-[#ffffff] border-2 border-[#181d18] shadow-[4px_4px_0px_#181d18] hover:shadow-[6px_6px_0px_#181d18] space-y-2.5 h-full transition-all">
+                    <div className="p-2.5 rounded-xl bg-[#fef9c3] w-fit border border-[#181d18] shadow-[1.5px_1.5px_0px_#181d18]">
                       {v.icon}
                     </div>
-                    <h4 className="text-base font-bold text-[#282828]">{v.title}</h4>
-                    <p className="text-xs text-[#575a53] leading-relaxed">{v.desc}</p>
+                    <h4 className="text-base font-black text-[#181d18]">{v.title}</h4>
+                    <p className="text-xs text-[#343831] font-medium leading-relaxed">{v.desc}</p>
                   </div>
                 </SelectionBox>
               </motion.div>
@@ -140,35 +140,37 @@ export const AboutSection: React.FC = () => {
           className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
         >
           <div className="lg:col-span-6 space-y-4">
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#efeedc] text-[#343831] border border-[#343831]">
+            <span className="px-3.5 py-1.5 rounded-full text-xs font-black bg-[#ffd269] text-[#181d18] border-2 border-[#181d18] shadow-[2px_2px_0px_#181d18] inline-block">
               📸 Momen Kebersamaan
             </span>
-            <h3 className="text-2xl md:text-3xl font-bold text-[#282828] font-['Outfit']">
+            <h3 className="text-2xl md:text-3xl font-black text-[#181d18] font-['Outfit']">
               Generasi Emas SMKN 64 Jakarta
             </h3>
-            <p className="text-[#575a53] text-sm leading-relaxed">
+            <p className="text-[#343831] text-sm leading-relaxed font-medium">
               Rohkris SMKN 64 Jakarta bukan sekadar perkumpulan ekstrakurikuler, melainkan sebuah keluarga di mana setiap siswa saling menopang, bertumbuh dalam iman kepada Kristus, dan bersama-sama menorehkan prestasi terbaik bagi kemuliaan Tuhan.
             </p>
             <div className="pt-2 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full p-0.5 bg-[#efeedc] border border-[#d6d2bd] shrink-0 shadow-xs">
+              <div className="w-11 h-11 rounded-full p-0.5 bg-[#ffffff] border-2 border-[#181d18] shrink-0 shadow-[2px_2px_0px_#181d18]">
                 <img src="/logo.png" alt="Logo" className="w-full h-full object-cover rounded-full" />
               </div>
               <div>
-                <h5 className="text-xs font-bold text-[#282828]">Persekutuan Rohkris 64</h5>
-                <span className="text-[11px] text-[#62665a]">SMKN 64 Jakarta • Bersatu dalam Kasih</span>
+                <h5 className="text-xs font-black text-[#181d18]">Persekutuan Rohkris 64</h5>
+                <span className="text-[11px] text-[#343831] font-bold">SMKN 64 Jakarta • Bersatu dalam Kasih</span>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-6">
-            <HalftoneReveal
-              imageSrc="/rohkris64-group.jpg"
-              alt="Keluarga Besar Rohkris SMKN 64 Jakarta"
-              className="h-[340px] md:h-[400px] border border-[#e6e3d1] shadow-xl rounded-2xl overflow-hidden"
-              dotColor="rgba(52, 56, 49, 0.35)"
-              dotSize={3.5}
-              gap={14}
-            />
+            <div className="rounded-3xl border-[2.5px] border-[#181d18] shadow-[6px_6px_0px_#181d18] overflow-hidden bg-white">
+              <HalftoneReveal
+                imageSrc="/rohkris64-group.jpg"
+                alt="Keluarga Besar Rohkris SMKN 64 Jakarta"
+                className="h-[340px] md:h-[400px]"
+                dotColor="rgba(24, 29, 24, 0.4)"
+                dotSize={3.5}
+                gap={14}
+              />
+            </div>
           </div>
         </motion.div>
 
@@ -178,15 +180,15 @@ export const AboutSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="p-6 md:p-8 rounded-3xl bg-[#f7f6ec] border border-[#e6e3d1] flex flex-col md:flex-row items-center justify-between gap-6 shadow-md"
+          className="p-6 md:p-8 rounded-3xl bg-[#ffffff] border-[2.5px] border-[#181d18] flex flex-col md:flex-row items-center justify-between gap-6 shadow-[6px_6px_0px_#181d18]"
         >
           <div className="space-y-2 max-w-xl">
-            <div className="flex items-center gap-2 text-[#8c6a49] text-xs font-bold uppercase tracking-wider">
-              <MapPin className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-[#181d18] text-xs font-black uppercase tracking-wider">
+              <MapPin className="w-4 h-4 text-[#181d18]" />
               Lokasi Sekolah
             </div>
-            <h4 className="text-xl font-bold text-[#282828] font-['Outfit']">SMK Negeri 64 Jakarta</h4>
-            <p className="text-xs text-[#575a53] leading-relaxed">
+            <h4 className="text-xl font-black text-[#181d18] font-['Outfit']">SMK Negeri 64 Jakarta</h4>
+            <p className="text-xs text-[#343831] font-medium leading-relaxed">
               Jl. Mpo Nori RT 09 RW 03<br />
               Kel. Bambu Apus, Kec. Cipayung, Kota Jakarta Timur<br />
               DKI Jakarta
@@ -197,12 +199,12 @@ export const AboutSection: React.FC = () => {
             href="https://maps.google.com/?q=SMKN+64+Jakarta"
             target="_blank"
             rel="noreferrer"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#c5de9b] hover:bg-[#b8d488] text-[#282828] font-bold text-xs border border-[#343831] shadow-xs whitespace-nowrap transition-colors cursor-pointer"
+            className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#c5de9b] hover:bg-[#b8d488] text-[#181d18] font-black text-xs border-2 border-[#181d18] shadow-[3.5px_3.5px_0px_#181d18] whitespace-nowrap transition-all cursor-pointer active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
           >
             <span>Buka di Google Maps</span>
-            <ExternalLink className="w-4 h-4" />
+            <ExternalLink className="w-4 h-4 text-[#181d18]" />
           </motion.a>
         </motion.div>
       </div>

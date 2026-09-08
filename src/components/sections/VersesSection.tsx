@@ -72,23 +72,23 @@ export const VersesSection: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="space-y-3 max-w-xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#efeedc] text-[#343831] border border-[#343831]">
-              <BookOpen className="w-3.5 h-3.5 text-[#8c6a49]" />
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black bg-[#ffd269] text-[#181d18] border-2 border-[#181d18] shadow-[2.5px_2.5px_0px_#181d18]">
+              <BookOpen className="w-3.5 h-3.5 text-[#181d18]" />
               <span>Firman Tuhan</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#282828] font-['Outfit'] tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#181d18] font-['Outfit'] tracking-tight">
               Kekuatan dari Sabda-Nya
             </h2>
-            <p className="text-[#575a53] text-sm md:text-base leading-relaxed">
+            <p className="text-[#343831] text-sm md:text-base leading-relaxed font-medium">
               Biarlah Firman Tuhan menjadi pelita bagi kaki kita dan terang bagi jalan kita. Temukan kekuatan baru melalui ayat-ayat Alkitab pilihan ini.
             </p>
           </div>
         </div>
 
-        {/* DriftWall Container */}
-        <div className="relative w-full h-[600px] rounded-3xl overflow-hidden border border-[#e6e3d1] shadow-xl bg-[#f7f6ec]">
-          {/* Subtle gradient overlay to blend edges */}
-          <div className="absolute inset-0 z-10 pointer-events-none rounded-3xl ring-1 ring-inset ring-[#e6e3d1]" />
+        {/* DriftWall Container with Toon Frame */}
+        <div className="relative w-full h-[600px] rounded-3xl overflow-hidden border-[2.5px] border-[#181d18] shadow-[6px_6px_0px_#181d18] bg-[#ffffff]">
+          {/* Subtle overlay to blend edges */}
+          <div className="absolute inset-0 z-10 pointer-events-none rounded-3xl ring-2 ring-inset ring-[#181d18]/10" />
           
           <DriftWall
             items={VERSES}
@@ -98,7 +98,7 @@ export const VersesSection: React.FC = () => {
             gap={20}
             tilt={15}
             turn={-10}
-            overlayColor="#282828"
+            overlayColor="#181d18"
             perspective={1000}
             depth={100}
             speed={35}

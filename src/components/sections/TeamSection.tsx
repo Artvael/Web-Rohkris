@@ -50,27 +50,27 @@ export const TeamSection: React.FC = () => {
       <div className="max-w-6xl mx-auto space-y-10">
         {/* Section Header */}
         <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#efeedc] text-[#343831] border border-[#343831]">
-            <Crown className="w-3.5 h-3.5 text-[#8c6a49]" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black bg-[#ffd269] text-[#181d18] border-2 border-[#181d18] shadow-[2.5px_2.5px_0px_#181d18]">
+            <Crown className="w-3.5 h-3.5 text-[#181d18]" />
             <span>Pelayan & Kepengurusan</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#282828] font-['Outfit'] tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[#181d18] font-['Outfit'] tracking-tight">
             Struktur Pengurus Rohkris 64
           </h2>
-          <p className="text-[#575a53] text-sm md:text-base leading-relaxed">
+          <p className="text-[#343831] text-sm md:text-base leading-relaxed font-medium">
             Siswa-siswi yang terpanggil untuk melayani dan menjadi saluran berkat bagi seluruh keluarga besar SMKN 64 Jakarta.
           </p>
         </div>
 
         {/* OptionWheel Component from ReactBits for Switching Divisions */}
         <div className="max-w-xl mx-auto w-full">
-          <div className="relative h-44 md:h-52 rounded-3xl bg-[#f7f6ec] border border-[#e6e3d1] shadow-md overflow-hidden p-2">
-            <div className="absolute left-4 top-3 text-[10px] uppercase font-bold text-[#8c6a49] tracking-widest pointer-events-none z-20 flex items-center gap-1.5">
+          <div className="relative h-44 md:h-52 rounded-3xl bg-[#ffffff] border-[2.5px] border-[#181d18] shadow-[6px_6px_0px_#181d18] overflow-hidden p-2">
+            <div className="absolute left-4 top-3 text-[10px] uppercase font-black text-[#181d18] tracking-widest pointer-events-none z-20 flex items-center gap-1.5 bg-[#ffd269] px-2.5 py-0.5 rounded-full border border-[#181d18] shadow-[1px_1px_0px_#181d18]">
               <span>↕ Gulir / Geser untuk Memilih Divisi</span>
             </div>
 
             {/* Glowing active indicator background in center */}
-            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-14 bg-[#c5de9b]/35 border-y border-[#343831]/20 pointer-events-none z-0" />
+            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-14 bg-[#ffd269]/30 border-y-2 border-[#181d18] pointer-events-none z-0" />
 
             <OptionWheel
               items={DIVISIONS_DATA.map((d) => d.name)}
@@ -81,7 +81,7 @@ export const TeamSection: React.FC = () => {
                 }
               }}
               textColor="#78716c"
-              activeColor="#282828"
+              activeColor="#181d18"
               fontSize={1.3}
               spacing={1.6}
               curve={0.9}
@@ -89,7 +89,7 @@ export const TeamSection: React.FC = () => {
               inset={50}
               side="left"
               draggable={true}
-              className="z-10 font-['Outfit']"
+              className="z-10 font-['Outfit'] font-extrabold"
             />
           </div>
         </div>
@@ -100,12 +100,12 @@ export const TeamSection: React.FC = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="p-5 rounded-2xl bg-[#f7f6ec] border border-[#e6e3d1] shadow-xs max-w-3xl mx-auto text-center space-y-2"
+          className="p-5 rounded-2xl bg-[#ffffff] border-2 border-[#181d18] shadow-[3px_3px_0px_#181d18] max-w-3xl mx-auto text-center space-y-2"
         >
-          <h3 className="text-lg font-bold text-[#282828] font-['Outfit']">
+          <h3 className="text-lg font-black text-[#181d18] font-['Outfit']">
             {activeDivisionInfo.name}
           </h3>
-          <p className="text-[#575a53] text-xs md:text-sm leading-relaxed max-w-xl mx-auto">
+          <p className="text-[#343831] text-xs md:text-sm font-medium leading-relaxed max-w-xl mx-auto">
             {activeDivisionInfo.description}
           </p>
         </motion.div>
@@ -122,19 +122,19 @@ export const TeamSection: React.FC = () => {
           >
             {members.map((member) => (
               <SelectionBox key={member.id} className="h-full rounded-2xl">
-                <div className="p-6 rounded-2xl bg-[#f7f6ec] border border-[#e6e3d1] shadow-xs flex flex-col justify-between h-full space-y-4">
+                <div className="p-6 rounded-2xl bg-[#ffffff] border-[2.5px] border-[#181d18] shadow-[4px_4px_0px_#181d18] hover:shadow-[6px_6px_0px_#181d18] flex flex-col justify-between h-full space-y-4 transition-all">
                   <div className="space-y-4">
                     {/* Member Details */}
                     <div className="flex items-center gap-4">
                       <div>
-                        <span className="text-[11px] font-bold text-[#8c6a49] uppercase tracking-wider block">
+                        <span className="text-[10px] font-black text-[#181d18] uppercase tracking-wider inline-block bg-[#fed7aa] px-2 py-0.5 rounded border border-[#181d18] mb-1">
                           {member.role}
                         </span>
-                        <h4 className="text-base font-bold text-[#282828] font-['Outfit'] leading-tight">
+                        <h4 className="text-base font-black text-[#181d18] font-['Outfit'] leading-tight">
                           {member.name}
                         </h4>
                         {member.grade && (
-                          <span className="text-xs text-[#62665a] font-medium">
+                          <span className="text-xs text-[#343831] font-bold">
                             {member.grade}
                           </span>
                         )}
@@ -143,26 +143,26 @@ export const TeamSection: React.FC = () => {
 
                     {/* Member Quote */}
                     {member.quote && (
-                      <div className="relative p-3.5 rounded-xl bg-[#ffffff] border border-[#e6e3d1] text-xs text-[#575a53] italic leading-relaxed shadow-xs">
-                        <Quote className="w-3.5 h-3.5 text-[#8c6a49]/60 mb-1" />
-                        <span>{member.quote}</span>
+                      <div className="relative p-3.5 rounded-xl bg-[#f8fafc] border-2 border-[#181d18]/10 text-xs text-[#181d18] italic font-medium leading-relaxed shadow-[1.5px_1.5px_0px_#181d18]">
+                        <Quote className="w-3.5 h-3.5 text-[#181d18]/60 mb-1" />
+                        <span>"{member.quote}"</span>
                       </div>
                     )}
                   </div>
 
                   {/* Social links */}
                   {member.instagram && (
-                    <div className="pt-2 border-t border-[#e6e3d1] flex items-center justify-between text-xs text-[#62665a]">
+                    <div className="pt-2.5 border-t-2 border-[#181d18]/10 flex items-center justify-between text-xs text-[#343831]">
                       <a
                         href={`https://instagram.com/${member.instagram}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-1.5 text-[#3e502c] hover:text-[#282828] font-semibold transition-colors"
+                        className="flex items-center gap-1.5 text-[#181d18] hover:text-[#0d99ff] font-bold transition-colors"
                       >
                         <InstagramIcon className="w-3.5 h-3.5" />
                         <span>@{member.instagram}</span>
                       </a>
-                      <span className="text-[11px] text-[#8c6a49]">Rohkris 64</span>
+                      <span className="text-[11px] font-black text-[#181d18] bg-[#fef9c3] px-2 py-0.5 rounded border border-[#181d18]">Rohkris 64</span>
                     </div>
                   )}
                 </div>

@@ -71,11 +71,17 @@ export const SelectionBox: React.FC<SelectionBoxProps> = ({
           {children}
         </div>
 
-        {/* Floating 3D Vector Selection Overlay */}
+        {/* Floating 3D Vector Selection Overlay & Figma Badge */}
         <div
           style={{ transform: 'translateZ(16px)' }}
           className="selection-overlay pointer-events-none"
         />
+        <div
+          style={{ transform: 'translateZ(26px)' }}
+          className="selection-figma-badge pointer-events-none"
+        >
+          ✦ Frame: Selection ✦
+        </div>
 
         {/* 4 Corner Handles floating in 3D Space on Z-axis */}
         <span style={{ transform: 'translateZ(22px)' }} className="selection-handle selection-handle-tl" />
