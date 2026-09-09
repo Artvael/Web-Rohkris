@@ -33,7 +33,7 @@ import type { DivisionCategory, GalleryItem, ScheduleEvent, TeamMember, Song } f
 type TabType = 'overview' | 'gallery' | 'schedule' | 'team' | 'songs' | 'prayers';
 
 export const AdminDashboard: React.FC = () => {
-  const { user, role, isAdmin, logout, loginAsDemoAdmin } = useAuth();
+  const { user, role, isAdmin, logout, loginAsDemoAdmin, promoteToAdmin } = useAuth();
   const [activeTab, setActiveTab] = useState<TabType>('overview');
   const [notification, setNotification] = useState<string | null>(null);
 
@@ -194,9 +194,21 @@ export const AdminDashboard: React.FC = () => {
           </div>
 
           {user && !isAdmin && (
-            <div className="p-3 bg-[#ffe8a3] rounded-xl border border-[#181d18] text-xs text-[#181d18] font-bold flex items-center gap-2 text-left">
-              <AlertTriangle className="w-4 h-4 shrink-0 text-[#b45309]" />
-              <span>Anda masuk sebagai <strong>{user.email}</strong> dengan peran <strong>{role}</strong>. Anda perlu hak Administrator untuk mengedit.</span>
+            <div className="space-y-3">
+              <div className="p-3 bg-[#ffe8a3] rounded-xl border border-[#181d18] text-xs text-[#181d18] font-bold flex items-center gap-2 text-left">
+                <AlertTriangle className="w-4 h-4 shrink-0 text-[#b45309]" />
+                <span>Anda masuk sebagai <strong>{user.email}</strong> dengan peran <strong>{role}</strong>.</span>
+              </div>
+              <button
+                onClick={() => {
+                  promoteToAdmin();
+                  notify('Selamat! Akun Anda kini memiliki hak Administrator.');
+                }}
+                className="w-full py-2.5 px-4 rounded-xl bg-[#ffd269] text-[#181d18] font-black text-xs border-2 border-[#181d18] shadow-[3px_3px_0px_#181d18] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Sparkles className="w-4 h-4 text-[#181d18]" />
+                <span>👑 Aktifkan Hak Admin untuk Akun Ini</span>
+              </button>
             </div>
           )}
 

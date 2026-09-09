@@ -149,6 +149,16 @@ export function useAuth() {
     saveStoredUser(demoUser);
   }, []);
 
+  const promoteToAdmin = useCallback(() => {
+    if (!user) return;
+    const updated: AppUser = {
+      ...user,
+      role: 'admin',
+    };
+    setUser(updated);
+    saveStoredUser(updated);
+  }, [user]);
+
   return {
     user,
     role: user?.role,
@@ -162,5 +172,6 @@ export function useAuth() {
     logout,
     loginAsDemoAdmin,
     loginAsDemoUser,
+    promoteToAdmin,
   };
 }
