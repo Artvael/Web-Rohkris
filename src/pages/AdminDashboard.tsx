@@ -29,6 +29,7 @@ import { useScheduleStore } from '../hooks/useScheduleStore';
 import { useTeamStore } from '../hooks/useTeamStore';
 import { useSongStore } from '../hooks/useSongStore';
 import { usePrayerStore } from '../hooks/usePrayerStore';
+import { ImageUploadField } from '../components/admin/ImageUploadField';
 import type { DivisionCategory, GalleryItem, ScheduleEvent, TeamMember, Song } from '../types';
 
 type TabType = 'overview' | 'gallery' | 'schedule' | 'team' | 'songs' | 'prayers';
@@ -1368,31 +1369,12 @@ export const AdminDashboard: React.FC = () => {
                 </div>
               </div>
 
-              <div>
-                <label className="block mb-1">URL Foto (Link Gambar Online)</label>
-                <input
-                  type="url"
-                  required
-                  placeholder="https://images.unsplash.com/... atau link gambar"
-                  value={galleryForm.imageUrl}
-                  onChange={(e) => setGalleryForm({ ...galleryForm, imageUrl: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-[#fdfdf5] border-2 border-[#181d18] focus:outline-none"
-                />
-              </div>
-
-              {galleryForm.imageUrl && (
-                <div className="h-32 rounded-xl overflow-hidden border border-[#181d18] bg-[#f4f0e6]">
-                  <img
-                    src={galleryForm.imageUrl}
-                    alt="Preview"
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src =
-                        'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80';
-                    }}
-                  />
-                </div>
-              )}
+              <ImageUploadField
+                label="Foto Kegiatan"
+                value={galleryForm.imageUrl}
+                onChange={(url) => setGalleryForm({ ...galleryForm, imageUrl: url })}
+                required
+              />
 
               <div>
                 <label className="block mb-1">Deskripsi Singkat (Opsional)</label>
