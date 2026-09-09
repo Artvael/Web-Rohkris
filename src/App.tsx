@@ -21,6 +21,7 @@ import { useGalleryStore } from './hooks/useGalleryStore';
 import { useScheduleStore } from './hooks/useScheduleStore';
 import { usePrayerStore } from './hooks/usePrayerStore';
 import { useUserCursorName } from './hooks/useUserCursorName';
+import { ChristianPreloader } from './components/common/ChristianPreloader';
 import { UserCursor } from './components/ui/user-cursor';
 import { AuthPage } from './pages/AuthPage';
 import { AdminDashboard } from './pages/AdminDashboard';
@@ -56,6 +57,9 @@ export function MainWebsite() {
 
   return (
     <div className="relative min-h-screen bg-[#f4f0e6] text-[#282828] selection:bg-[#c5de9b] selection:text-[#282828] overflow-x-hidden font-['Plus_Jakarta_Sans',sans-serif]">
+      {/* Sacred Christian Preloader */}
+      <ChristianPreloader />
+
       {/* 0. React Bits Pro User Cursor (A custom cursor with a little name tag that follows along) */}
       <UserCursor
         fullScreen={true}
