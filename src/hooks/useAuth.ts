@@ -8,6 +8,7 @@ import {
   signUpWithEmail,
   signInWithGoogle,
   signOutUser,
+  verifyAdminSecret,
 } from '../lib/auth';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
@@ -77,11 +78,17 @@ export function useAuth() {
     }
   };
 
-  const register = async (email: string, pass: string, name: string, role: UserRole = 'user') => {
+  const register = async (
+    email: string,
+    pass: string,
+    name: string,
+    role: UserRole = 'user',
+    adminSecretKey?: string
+  ) => {
     setIsLoading(true);
     setError(null);
     try {
-      const result = await signUpWithEmail(email, pass, name, role);
+      const result = await signUpWithEmail(email, pass, name, role, adminSecretKey);
       if (result.error) {
         setError(result.error);
         return false;
@@ -124,40 +131,25 @@ export function useAuth() {
     }
   };
 
-  const loginAsDemoAdmin = useCallback(() => {
-    const demoAdmin: AppUser = {
-      id: 'usr-admin-demo',
-      email: 'admin@rohkris64.sch.id',
-      name: 'Pengurus Inti Rohkris 64',
-      role: 'admin',
-      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-      isDemo: true,
-    };
-    setUser(demoAdmin);
-    saveStoredUser(demoAdmin);
-  }, []);
-
-  const loginAsDemoUser = useCallback(() => {
-    const demoUser: AppUser = {
-      id: 'usr-member-demo',
-      email: 'siswa@rohkris64.sch.id',
-      name: 'Siswa Rohkris 64',
-      role: 'user',
-      isDemo: true,
-    };
-    setUser(demoUser);
-    saveStoredUser(demoUser);
-  }, []);
-
-  const promoteToAdmin = useCallback(() => {
-    if (!user) return;
-    const updated: AppUser = {
-      ...user,
-      role: 'admin',
-    };
-    setUser(updated);
-    saveStoredUser(updated);
-  }, [user]);
+  const promoteToAdmin = useCallback(
+    (secretKey: string): { success: boolean; error?: string } => {
+      if (!user) return { success: false, error: 'Silakan login terlebih dahulu' };
+      if (!verifyAdminSecret(secretKey)) {
+        return {
+          success: false,
+          error: 'Kode Rahasia Pengurus salah! Hanya pengurus sah SMKN 64 yang memiliki akses.',
+        };
+      }
+      const updated: AppUser = {
+        ...user,
+        role: 'admin',
+      };
+      setUser(updated);
+      saveStoredUser(updated);
+      return { success: true };
+    },
+    [user]
+  );
 
   return {
     user,
@@ -170,8 +162,6 @@ export function useAuth() {
     register,
     loginGoogle,
     logout,
-    loginAsDemoAdmin,
-    loginAsDemoUser,
     promoteToAdmin,
   };
 }

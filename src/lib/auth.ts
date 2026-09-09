@@ -38,15 +38,29 @@ export function saveStoredUser(user: AppUser | null) {
   }
 }
 
+export const ADMIN_SECRET_PIN = 'ROHKRIS64JUARA';
+export const MASTER_ADMIN_EMAIL = 'admin@rohkris64.sch.id';
+export const MASTER_ADMIN_PASS = 'rohkris64admin';
+
+export function verifyAdminSecret(secret: string): boolean {
+  if (!secret) return false;
+  const cleaned = secret.trim();
+  return (
+    cleaned.toUpperCase() === ADMIN_SECRET_PIN ||
+    cleaned === MASTER_ADMIN_PASS ||
+    cleaned.toUpperCase() === 'PENGURUS64'
+  );
+}
+
 export async function signInWithEmail(email: string, pass: string): Promise<{ user: AppUser | null; error: string | null }> {
   const cleanEmail = email.trim().toLowerCase();
   
-  // Check for admin master credentials or local demo
-  if (cleanEmail === 'admin@rohkris64.sch.id' || pass === 'rohkris64admin') {
+  // Check for admin master credentials (STRICT: requires BOTH exact email AND password)
+  if (cleanEmail === MASTER_ADMIN_EMAIL && pass === MASTER_ADMIN_PASS) {
     const adminUser: AppUser = {
       id: 'usr-admin-master',
-      email: cleanEmail || 'admin@rohkris64.sch.id',
-      name: 'Pengurus Rohkris 64',
+      email: MASTER_ADMIN_EMAIL,
+      name: 'Pengurus Inti Rohkris 64',
       role: 'admin',
       isDemo: false,
     };
@@ -82,12 +96,12 @@ export async function signInWithEmail(email: string, pass: string): Promise<{ us
     }
   }
 
-  // Fallback local sign in
+  // Fallback local sign in - default to regular user
   const fallbackUser: AppUser = {
     id: 'usr-' + Date.now(),
     email: cleanEmail,
     name: cleanEmail.split('@')[0],
-    role: cleanEmail.includes('admin') ? 'admin' : 'user',
+    role: 'user',
   };
   saveStoredUser(fallbackUser);
   return { user: fallbackUser, error: null };
@@ -97,10 +111,21 @@ export async function signUpWithEmail(
   email: string,
   pass: string,
   name: string,
-  role: UserRole = 'user'
+  role: UserRole = 'user',
+  adminSecretKey?: string
 ): Promise<{ user: AppUser | null; error: string | null }> {
   const cleanEmail = email.trim().toLowerCase();
   const cleanName = name.trim() || cleanEmail.split('@')[0];
+
+  // If registering as admin, STRICTLY verify admin secret key!
+  if (role === 'admin') {
+    if (!adminSecretKey || !verifyAdminSecret(adminSecretKey)) {
+      return {
+        user: null,
+        error: 'Kode Rahasia Pengurus salah! Hanya pengurus aktif SMKN 64 yang memiliki akses admin.',
+      };
+    }
+  }
 
   if (isSupabaseConfigured && supabase) {
     try {

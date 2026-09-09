@@ -20,6 +20,7 @@ import {
   X,
   AlertTriangle,
   Radio,
+  KeyRound,
 } from 'lucide-react';
 
 import { useAuth } from '../hooks/useAuth';
@@ -33,9 +34,11 @@ import type { DivisionCategory, GalleryItem, ScheduleEvent, TeamMember, Song } f
 type TabType = 'overview' | 'gallery' | 'schedule' | 'team' | 'songs' | 'prayers';
 
 export const AdminDashboard: React.FC = () => {
-  const { user, role, isAdmin, logout, loginAsDemoAdmin, promoteToAdmin } = useAuth();
+  const { user, role, isAdmin, logout, promoteToAdmin } = useAuth();
   const [activeTab, setActiveTab] = useState<TabType>('overview');
   const [notification, setNotification] = useState<string | null>(null);
+  const [adminPinInput, setAdminPinInput] = useState('');
+  const [pinError, setPinError] = useState<string | null>(null);
 
   // Stores
   const {
@@ -193,47 +196,88 @@ export const AdminDashboard: React.FC = () => {
             </p>
           </div>
 
-          {user && !isAdmin && (
-            <div className="space-y-3">
-              <div className="p-3 bg-[#ffe8a3] rounded-xl border border-[#181d18] text-xs text-[#181d18] font-bold flex items-center gap-2 text-left">
-                <AlertTriangle className="w-4 h-4 shrink-0 text-[#b45309]" />
-                <span>Anda masuk sebagai <strong>{user.email}</strong> dengan peran <strong>{role}</strong>.</span>
+          {user && !isAdmin ? (
+            <div className="space-y-4 text-left">
+              <div className="p-3 bg-[#fee2e2] rounded-2xl border-2 border-[#ef4444] text-xs text-[#991b1b] font-bold flex items-start gap-2">
+                <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-[#ef4444]" />
+                <div>
+                  <p>Anda masuk sebagai <strong>{user.email}</strong></p>
+                  <p className="text-[11px] text-[#b91c1c] mt-0.5 font-medium">Peran saat ini: <strong className="capitalize">{role || 'user'}</strong> (User Biasa). Akun ini tidak memiliki hak kelola dasbor admin.</p>
+                </div>
               </div>
-              <button
-                onClick={() => {
-                  promoteToAdmin();
-                  notify('Selamat! Akun Anda kini memiliki hak Administrator.');
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setPinError(null);
+                  if (!adminPinInput.trim()) {
+                    setPinError('Masukkan kode PIN rahasia pengurus.');
+                    return;
+                  }
+                  const res = promoteToAdmin(adminPinInput.trim());
+                  if (res.success) {
+                    notify('Verifikasi Berhasil! Selamat datang Pengurus Rohkris 64.');
+                    setAdminPinInput('');
+                  } else {
+                    setPinError(res.error || 'Kode PIN Pengurus salah!');
+                  }
                 }}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#ffd269] text-[#181d18] font-black text-xs border-2 border-[#181d18] shadow-[3px_3px_0px_#181d18] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="space-y-3 p-4 bg-[#fffbeb] rounded-2xl border-2 border-[#181d18]"
               >
-                <Sparkles className="w-4 h-4 text-[#181d18]" />
-                <span>👑 Aktifkan Hak Admin untuk Akun Ini</span>
+                <div className="flex items-center gap-2">
+                  <KeyRound className="w-4 h-4 text-[#181d18]" />
+                  <span className="text-xs font-black text-[#181d18]">
+                    Pengurus SMKN 64? Masukkan PIN Admin:
+                  </span>
+                </div>
+                <input
+                  type="password"
+                  value={adminPinInput}
+                  onChange={(e) => {
+                    setAdminPinInput(e.target.value);
+                    if (pinError) setPinError(null);
+                  }}
+                  placeholder="Kode Rahasia Pengurus"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border-2 border-[#181d18] text-xs font-bold text-[#181d18] outline-none focus:shadow-[2px_2px_0px_#181d18]"
+                />
+                {pinError && (
+                  <p className="text-xs font-bold text-red-600 flex items-center gap-1.5">
+                    <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                    <span>{pinError}</span>
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  className="w-full py-2.5 px-4 rounded-xl bg-[#ffd269] text-[#181d18] font-black text-xs border-2 border-[#181d18] shadow-[3px_3px_0px_#181d18] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4 text-[#181d18]" />
+                  <span>Verifikasi & Buka Dasbor Admin</span>
+                </button>
+              </form>
+
+              <button
+                onClick={() => logout()}
+                className="w-full py-2.5 px-4 rounded-xl bg-white text-[#181d18] font-bold text-xs border-2 border-[#181d18] shadow-[2px_2px_0px_#181d18] hover:bg-[#f4f0e6] transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5 text-[#181d18]" />
+                <span>Ganti / Keluar Akun</span>
               </button>
+            </div>
+          ) : (
+            <div className="space-y-3 pt-2">
+              <Link
+                to="/login?redirect=/admin"
+                className="w-full py-3 px-4 rounded-2xl bg-[#c5de9b] text-[#181d18] font-black border-2 border-[#181d18] shadow-[3px_3px_0px_#181d18] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0px_#181d18] transition-all flex items-center justify-center gap-2"
+              >
+                <span>Masuk dengan Akun Pengurus</span>
+              </Link>
             </div>
           )}
 
-          <div className="space-y-3 pt-2">
-            <Link
-              to="/login"
-              className="w-full py-3 px-4 rounded-xl bg-[#c5de9b] text-[#181d18] font-black border-2 border-[#181d18] shadow-[3px_3px_0px_#181d18] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0px_#181d18] transition-all flex items-center justify-center gap-2"
-            >
-              <span>Masuk dengan Email / Google</span>
-            </Link>
-
-            <button
-              onClick={() => {
-                loginAsDemoAdmin();
-                notify('Berhasil masuk sebagai Admin Rohkris 64!');
-              }}
-              className="w-full py-2.5 px-4 rounded-xl bg-[#ffd269] text-[#181d18] font-black text-sm border-2 border-[#181d18] shadow-[3px_3px_0px_#181d18] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0px_#181d18] transition-all flex items-center justify-center gap-2"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>1-Klik Masuk sebagai Demo Admin</span>
-            </button>
-
+          <div className="pt-2">
             <Link
               to="/"
-              className="inline-block text-xs font-black text-[#555] hover:text-[#181d18] underline pt-2"
+              className="inline-block text-xs font-black text-[#555] hover:text-[#181d18] underline"
             >
               ← Kembali ke Halaman Utama
             </Link>

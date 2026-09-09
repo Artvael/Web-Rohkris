@@ -23,7 +23,7 @@ export const AuthPage: React.FC = () => {
   const navigate = useNavigate();
   const redirectTarget = searchParams.get('redirect') || '/admin';
 
-  const { user, login, register, loginGoogle, loginAsDemoAdmin, loginAsDemoUser, isLoading, error: authError } = useAuth();
+  const { user, login, register, loginGoogle, isLoading, error: authError } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -35,7 +35,8 @@ export const AuthPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [role, setRole] = useState<'admin' | 'user'>('admin');
+  const [role, setRole] = useState<'admin' | 'user'>('user');
+  const [adminSecretKey, setAdminSecretKey] = useState('');
   const [localError, setLocalError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
@@ -62,9 +63,13 @@ export const AuthPage: React.FC = () => {
         setLocalError('Nama lengkap wajib diisi untuk pendaftaran');
         return;
       }
-      const ok = await register(email, password, name, role);
+      if (role === 'admin' && !adminSecretKey.trim()) {
+        setLocalError('Kode Rahasia Pengurus wajib diisi untuk pendaftaran Admin');
+        return;
+      }
+      const ok = await register(email, password, name, role, adminSecretKey.trim());
       if (ok) {
-        setSuccessMsg('Pendaftaran berhasil! Mengalihkan ke dashboard...');
+        setSuccessMsg('Pendaftaran berhasil! Mengalihkan...');
         setTimeout(() => {
           navigate(redirectTarget);
         }, 800);
@@ -75,22 +80,6 @@ export const AuthPage: React.FC = () => {
   const handleGoogleLogin = async () => {
     setLocalError(null);
     await loginGoogle();
-  };
-
-  const handleQuickAdmin = () => {
-    loginAsDemoAdmin();
-    setSuccessMsg('Masuk sebagai Pengurus Inti (Admin)! Mengalihkan...');
-    setTimeout(() => {
-      navigate('/admin');
-    }, 500);
-  };
-
-  const handleQuickUser = () => {
-    loginAsDemoUser();
-    setSuccessMsg('Masuk sebagai Siswa Rohkris! Mengalihkan...');
-    setTimeout(() => {
-      navigate('/');
-    }, 500);
   };
 
   return (
@@ -283,11 +272,29 @@ export const AuthPage: React.FC = () => {
 
           {/* Role selection when registering */}
           {mode === 'register' && (
-            <div>
+            <div className="space-y-2">
               <label className="block text-xs font-black text-[#181d18] mb-1.5">
                 Daftar Sebagai Peran:
               </label>
               <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setRole('user')}
+                  className={`p-2.5 rounded-2xl text-left border-2 border-[#181d18] transition-all cursor-pointer ${
+                    role === 'user'
+                      ? 'bg-[#ffd269] shadow-[2.5px_2.5px_0px_#181d18]'
+                      : 'bg-white hover:bg-[#f4f0e6]'
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5 font-black text-xs text-[#181d18]">
+                    <Heart className="w-3.5 h-3.5" />
+                    <span>User Biasa (Siswa)</span>
+                  </div>
+                  <p className="text-[10px] text-[#343831] mt-0.5 font-medium">
+                    Kirim doa & jelajahi semua konten.
+                  </p>
+                </button>
+
                 <button
                   type="button"
                   onClick={() => setRole('admin')}
@@ -302,28 +309,33 @@ export const AuthPage: React.FC = () => {
                     <span>Pengurus (Admin)</span>
                   </div>
                   <p className="text-[10px] text-[#343831] mt-0.5 font-medium">
-                    Bisa edit foto, jadwal, lagu & kelola web.
-                  </p>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setRole('user')}
-                  className={`p-2.5 rounded-2xl text-left border-2 border-[#181d18] transition-all cursor-pointer ${
-                    role === 'user'
-                      ? 'bg-[#ffd269] shadow-[2.5px_2.5px_0px_#181d18]'
-                      : 'bg-white hover:bg-[#f4f0e6]'
-                  }`}
-                >
-                  <div className="flex items-center gap-1.5 font-black text-xs text-[#181d18]">
-                    <Heart className="w-3.5 h-3.5" />
-                    <span>User Biasa</span>
-                  </div>
-                  <p className="text-[10px] text-[#343831] mt-0.5 font-medium">
-                    Kirim doa & jelajahi semua konten.
+                    Perlu Kode Rahasia Pengurus.
                   </p>
                 </button>
               </div>
+
+              {/* Secret Admin Passkey Input */}
+              {role === 'admin' && (
+                <div className="mt-2.5 p-3 rounded-2xl bg-[#fffbeb] border-2 border-[#181d18] space-y-1">
+                  <label className="block text-xs font-black text-[#181d18]">
+                    🔑 Kode Rahasia Pengurus (PIN Admin)
+                  </label>
+                  <div className="relative">
+                    <KeyRound className="w-4 h-4 text-[#181d18]/60 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="password"
+                      value={adminSecretKey}
+                      onChange={(e) => setAdminSecretKey(e.target.value)}
+                      placeholder="Masukkan Kode Rahasia Pengurus"
+                      className="w-full pl-10 pr-3.5 py-2 rounded-xl bg-white border-2 border-[#181d18] text-xs font-bold outline-none"
+                      required={role === 'admin'}
+                    />
+                  </div>
+                  <p className="text-[10px] text-[#78350f] font-semibold">
+                    * Kode ini hanya diketahui oleh pengurus sah Rohkris SMKN 64.
+                  </p>
+                </div>
+              )}
             </div>
           )}
 
@@ -337,36 +349,14 @@ export const AuthPage: React.FC = () => {
           </button>
         </form>
 
-        {/* Quick Access Box for Testing & Fast Admin Login */}
-        <div className="p-3.5 rounded-2xl bg-[#fef9c3] border-2 border-[#181d18] shadow-[2.5px_2.5px_0px_#181d18] space-y-2">
-          <div className="flex items-center justify-between text-xs font-black text-[#181d18]">
-            <span className="flex items-center gap-1.5">
-              <KeyRound className="w-3.5 h-3.5 text-[#181d18]" />
-              Akses Cepat Pengurus:
-            </span>
-            <span className="text-[10px] bg-[#ffd269] px-2 py-0.5 rounded-full border border-[#181d18]">
-              Instant Admin
-            </span>
-          </div>
-          <p className="text-[11px] text-[#4b5563] leading-relaxed">
-            Ingin langsung masuk dan mengedit website tanpa mengisi form?
+        {/* Footer Note */}
+        <div className="text-center pt-2">
+          <p className="text-[11px] text-[#555] font-semibold">
+            ✦ Persekutuan Rohani Kristen SMKN 64 Jakarta ✦
           </p>
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={handleQuickAdmin}
-              className="flex-1 py-1.5 px-3 rounded-xl bg-[#181d18] text-white text-xs font-black shadow-[1.5px_1.5px_0px_#854d0e] hover:bg-[#283228] transition-all cursor-pointer"
-            >
-              👑 Masuk Sebagai Admin
-            </button>
-            <button
-              type="button"
-              onClick={handleQuickUser}
-              className="py-1.5 px-3 rounded-xl bg-white text-[#181d18] text-xs font-bold border border-[#181d18] shadow-[1.5px_1.5px_0px_#181d18] hover:bg-[#f4f0e6] transition-all cursor-pointer"
-            >
-              Siswa
-            </button>
-          </div>
+          <p className="text-[10px] text-[#888] mt-0.5">
+            Akun Administrator terproteksi kode keamanan pengurus.
+          </p>
         </div>
       </motion.div>
     </div>
