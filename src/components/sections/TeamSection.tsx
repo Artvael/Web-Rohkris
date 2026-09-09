@@ -6,6 +6,7 @@ import { DIVISIONS_DATA, TEAM_MEMBERS_DATA } from '../../data/teamData';
 import type { DivisionCategory, TeamMember } from '../../types';
 import { Crown, Quote } from 'lucide-react';
 import { sanityClient } from '../../sanity/client';
+import { useTeamStore } from '../../hooks/useTeamStore';
 
 const InstagramIcon: React.FC<{ className?: string }> = ({ className = 'w-3.5 h-3.5' }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -18,6 +19,7 @@ const InstagramIcon: React.FC<{ className?: string }> = ({ className = 'w-3.5 h-
 export const TeamSection: React.FC = () => {
   const [selectedDivision, setSelectedDivision] = useState<DivisionCategory>('bph');
   const [sanityMembers, setSanityMembers] = useState<TeamMember[]>([]);
+  const { members: storeMembers } = useTeamStore();
 
   useEffect(() => {
     sanityClient
@@ -41,8 +43,8 @@ export const TeamSection: React.FC = () => {
 
   const activeDivisionInfo = DIVISIONS_DATA.find((d) => d.id === selectedDivision) || DIVISIONS_DATA[0];
   
-  // Use Sanity data if available, otherwise use fallback hardcoded data
-  const dataSource = sanityMembers.length > 0 ? sanityMembers : TEAM_MEMBERS_DATA;
+  // Use Sanity data if available, otherwise use dynamic store members
+  const dataSource = sanityMembers.length > 0 ? sanityMembers : (storeMembers.length > 0 ? storeMembers : TEAM_MEMBERS_DATA);
   const members = dataSource.filter((m) => m.division === selectedDivision);
 
   return (

@@ -14,12 +14,13 @@ const MENU_ITEMS = [
   { label: 'Pengurus', link: '#pengurus', ariaLabel: 'Struktur Kepengurusan' },
   { label: 'Kotak Doa', link: '#kotak-doa', ariaLabel: 'Kirimkan Permohonan Doa' },
   { label: 'Tentang', link: '#tentang', ariaLabel: 'Visi Misi SMKN 64' },
+  { label: '👑 Admin Panel', link: '/admin', ariaLabel: 'Admin Panel Rohkris 64' },
 ];
 
 const SOCIAL_ITEMS = [
   { label: '✦ Instagram', link: 'https://instagram.com/rohkris_smkn64' },
   { label: '★ YouTube', link: 'https://youtube.com' },
-  { label: '✦ Kotak Doa', link: '#kotak-doa' },
+  { label: '👑 Masuk Admin', link: '/admin' },
 ];
 
 export const Navbar: React.FC<NavbarProps> = () => {
@@ -100,6 +101,14 @@ export const Navbar: React.FC<NavbarProps> = () => {
             <span>🏷️ {cursorName}</span>
             <Edit3 className="w-2.5 h-2.5 text-white opacity-90" />
           </button>
+
+          <a
+            href="/admin"
+            title="Buka Panel Admin Rohkris 64"
+            className="inline-flex items-center gap-1 ml-2 px-2.5 py-0.5 rounded-full bg-[#c5de9b] text-[#181d18] text-[11px] font-black border border-[#181d18] shadow-[1.5px_1.5px_0px_#181d18] hover:scale-105 active:scale-95 transition-transform"
+          >
+            <span>👑 Admin</span>
+          </a>
         </div>
 
         {/* Floating Toon Figma Toolbar Container */}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SelectionBox } from '../common/SelectionBox';
-import { SONGS_DATA } from '../../data/songsData';
 import { searchOnlineSongs } from '../../services/songSearchService';
 import type { Song } from '../../types';
 import {
@@ -18,6 +17,7 @@ import {
   BookmarkPlus,
   BookmarkCheck,
 } from 'lucide-react';
+import { useSongStore } from '../../hooks/useSongStore';
 
 export const SongbookSection: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,34 +33,15 @@ export const SongbookSection: React.FC = () => {
 
   const categories = ['Semua', 'Penyembahan', 'Pujian'];
 
-  // Load custom saved songs from localStorage on mount
-  const [localSongs, setLocalSongs] = useState<Song[]>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem('rohkris64_custom_songs');
-        if (saved) return [...JSON.parse(saved), ...SONGS_DATA];
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    return SONGS_DATA;
-  });
+  // Dynamic songs store shared with Admin Dashboard
+  const { songs: localSongs, addSong } = useSongStore();
 
   const handleSaveToBank = (song: Song) => {
     if (localSongs.some((s) => s.title.toLowerCase() === song.title.toLowerCase())) {
       return;
     }
-    const updated = [song, ...localSongs];
-    setLocalSongs(updated);
+    addSong(song);
     setSavedSongIds((prev) => [...prev, song.id]);
-    try {
-      const customOnly = updated.filter(
-        (s) => !SONGS_DATA.some((def) => def.id === s.id)
-      );
-      localStorage.setItem('rohkris64_custom_songs', JSON.stringify(customOnly));
-    } catch (e) {
-      console.error(e);
-    }
   };
 
   // Trigger online search automatically when typing with debounce

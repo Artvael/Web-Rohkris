@@ -1,4 +1,4 @@
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
@@ -22,12 +22,8 @@ import { useScheduleStore } from './hooks/useScheduleStore';
 import { usePrayerStore } from './hooks/usePrayerStore';
 import { useUserCursorName } from './hooks/useUserCursorName';
 import { UserCursor } from './components/ui/user-cursor';
-
-const SanityStudio = lazy(() =>
-  import('./components/admin/SanityStudio').then((module) => ({
-    default: module.SanityStudio,
-  }))
-);
+import { AuthPage } from './pages/AuthPage';
+import { AdminDashboard } from './pages/AdminDashboard';
 
 export function MainWebsite() {
   const { items: galleryItems } = useGalleryStore();
@@ -150,20 +146,8 @@ export function MainWebsite() {
 export function App() {
   return (
     <Routes>
-      <Route
-        path="/admin/*"
-        element={
-          <Suspense
-            fallback={
-              <div className="flex items-center justify-center min-h-screen bg-[#fdfdf5] text-[#282828] font-bold font-['Outfit']">
-                Memuat Sanity Studio...
-              </div>
-            }
-          >
-            <SanityStudio />
-          </Suspense>
-        }
-      />
+      <Route path="/login" element={<AuthPage />} />
+      <Route path="/admin/*" element={<AdminDashboard />} />
       <Route path="/*" element={<MainWebsite />} />
     </Routes>
   );
