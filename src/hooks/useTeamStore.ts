@@ -3,7 +3,9 @@ import type { TeamMember, DivisionCategory } from '../types';
 import { TEAM_MEMBERS_DATA, DIVISIONS_DATA } from '../data/teamData';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
-const STORAGE_KEY_TEAM = 'rohkris64_team_members';
+const STORAGE_KEY_TEAM = 'rohkris64_team_members_v3';
+
+const DIVISION_ORDER: Record<string, number> = { bph: 1, xii: 2, xi: 3, x: 4 };
 
 function mapDbToTeam(row: any): TeamMember {
   return {
@@ -63,6 +65,7 @@ export function useTeamStore() {
 
       if (!error && data && data.length > 0) {
         const mapped = data.map(mapDbToTeam);
+        mapped.sort((a, b) => (DIVISION_ORDER[a.division] || 99) - (DIVISION_ORDER[b.division] || 99));
         saveLocalBackup(mapped);
       }
     } catch (err) {

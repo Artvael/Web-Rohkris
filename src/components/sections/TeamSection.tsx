@@ -43,8 +43,8 @@ export const TeamSection: React.FC = () => {
 
   const activeDivisionInfo = DIVISIONS_DATA.find((d) => d.id === selectedDivision) || DIVISIONS_DATA[0];
   
-  // Use Sanity data if available, otherwise use dynamic store members
-  const dataSource = sanityMembers.length > 0 ? sanityMembers : (storeMembers.length > 0 ? storeMembers : TEAM_MEMBERS_DATA);
+  // Priority: 1. Supabase storeMembers (live updated by Admin Dashboard) -> 2. Sanity -> 3. Local fallback
+  const dataSource = storeMembers.length > 0 ? storeMembers : (sanityMembers.length > 0 ? sanityMembers : TEAM_MEMBERS_DATA);
   const members = dataSource.filter((m) => m.division === selectedDivision);
 
   return (

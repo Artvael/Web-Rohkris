@@ -153,55 +153,55 @@ export const TEAM_MEMBERS_DATA: TeamMember[] = [
     division: 'xi',
     grade: 'XI DKV 1',
   },
-  {
-    id: 'xi-9',
-    name: 'Felicia Tabitha Silitonga',
-    role: 'Anggota',
-    division: 'xi',
-    grade: 'XI RPL 1',
-  },
 
   // Kelas X
   {
     id: 'x-1',
-    name: 'Alicia Grace',
+    name: 'Felicia Tabitha Silitonga',
     role: 'Anggota',
     division: 'x',
     grade: 'X RPL 1',
   },
   {
     id: 'x-2',
-    name: 'Gabriel Refalino',
+    name: 'Alicia Grace',
     role: 'Anggota',
     division: 'x',
     grade: 'X RPL 1',
   },
   {
     id: 'x-3',
-    name: 'Gabriel Yespin Aritonang',
+    name: 'Gabriel Refalino',
     role: 'Anggota',
     division: 'x',
     grade: 'X RPL 1',
   },
   {
     id: 'x-4',
+    name: 'Gabriel Yespin Aritonang',
+    role: 'Anggota',
+    division: 'x',
+    grade: 'X RPL 1',
+  },
+  {
+    id: 'x-5',
     name: 'Christian Timoty Rafael',
     role: 'Anggota',
     division: 'x',
     grade: 'X DKV',
   },
   {
-    id: 'x-5',
+    id: 'x-6',
     name: 'Keyla Klarissa Tambunan',
     role: 'Anggota',
     division: 'x',
     grade: 'X DKV',
   },
   {
-    id: 'x-6',
+    id: 'x-7',
     name: 'Ruth Aurelia Manurung',
     role: 'Anggota',
     division: 'x',
     grade: 'X DKV',
-  }
+  },
 ];
