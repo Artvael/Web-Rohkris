@@ -36,8 +36,11 @@ export const SongbookSection: React.FC = () => {
   // Dynamic songs store shared with Admin Dashboard
   const { songs: localSongs, addSong } = useSongStore();
 
+  const normalizeCompact = (str: string) =>
+    (str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
   const handleSaveToBank = (song: Song) => {
-    if (localSongs.some((s) => s.title.toLowerCase() === song.title.toLowerCase())) {
+    if (localSongs.some((s) => normalizeCompact(s.title) === normalizeCompact(song.title))) {
       return;
     }
     addSong(song);
@@ -58,7 +61,7 @@ export const SongbookSection: React.FC = () => {
         const newResults = results.filter(
           (online) =>
             !localSongs.some(
-              (loc) => loc.title.toLowerCase() === online.title.toLowerCase()
+              (loc) => normalizeCompact(loc.title) === normalizeCompact(online.title)
             )
         );
         setOnlineSongs(newResults);
@@ -81,7 +84,7 @@ export const SongbookSection: React.FC = () => {
     const newResults = results.filter(
       (online) =>
         !localSongs.some(
-          (loc) => loc.title.toLowerCase() === online.title.toLowerCase()
+          (loc) => normalizeCompact(loc.title) === normalizeCompact(online.title)
         )
     );
     setOnlineSongs(newResults);
@@ -89,35 +92,31 @@ export const SongbookSection: React.FC = () => {
   };
 
   const filteredLocalSongs = localSongs.filter((song) => {
-    const term = searchTerm.toLowerCase().trim();
+    const term = searchTerm.trim();
     if (!term) return selectedCategory === 'Semua' || song.category === selectedCategory;
 
-    const normTerm = term
-      .replace(/tangan\s*ku/gi, 'tanganku')
-      .replace(/kasih\s*mu/gi, 'kasihmu')
-      .replace(/hati\s*ku/gi, 'hatiku')
-      .replace(/roh\s*kudus/gi, 'roh kudus')
-      .replace(/janji\s*mu/gi, 'janjimu')
-      .replace(/ku/gi, '')
-      .replace(/mu/gi, '')
-      .replace(/nya/gi, '');
+    const compactTerm = normalizeCompact(term);
+    const compactTitle = normalizeCompact(song.title);
+    const compactLyrics = normalizeCompact(song.lyrics);
+    const compactArtist = normalizeCompact(song.artist);
 
-    const normTitle = song.title
-      .toLowerCase()
-      .replace(/tangan\s*ku/gi, 'tanganku')
-      .replace(/kasih\s*mu/gi, 'kasihmu')
-      .replace(/hati\s*ku/gi, 'hatiku')
-      .replace(/roh\s*kudus/gi, 'roh kudus')
-      .replace(/janji\s*mu/gi, 'janjimu')
-      .replace(/ku/gi, '')
-      .replace(/mu/gi, '')
-      .replace(/nya/gi, '');
+    // Multi-word matching (e.g. "hari ini bahagia", "kurasa bahagia")
+    const words = term.toLowerCase().split(/\s+/).filter((w) => w.length >= 2);
+    const allWordsMatch =
+      words.length > 1 &&
+      words.every((w) => {
+        const cw = normalizeCompact(w);
+        return compactTitle.includes(cw) || compactLyrics.includes(cw) || compactArtist.includes(cw);
+      });
 
     const matchesSearch =
-      song.title.toLowerCase().includes(term) ||
-      song.artist.toLowerCase().includes(term) ||
-      song.lyrics.toLowerCase().includes(term) ||
-      normTitle.includes(normTerm);
+      compactTitle.includes(compactTerm) ||
+      compactLyrics.includes(compactTerm) ||
+      compactArtist.includes(compactTerm) ||
+      song.title.toLowerCase().includes(term.toLowerCase()) ||
+      song.lyrics.toLowerCase().includes(term.toLowerCase()) ||
+      song.artist.toLowerCase().includes(term.toLowerCase()) ||
+      allWordsMatch;
 
     const matchesCategory =
       selectedCategory === 'Semua' || song.category === selectedCategory;
@@ -385,7 +384,7 @@ export const SongbookSection: React.FC = () => {
                               title="Simpan ke Bank Lagu"
                             >
                               {savedSongIds.includes(song.id) ||
-                              localSongs.some((s) => s.title === song.title) ? (
+                              localSongs.some((s) => normalizeCompact(s.title) === normalizeCompact(song.title)) ? (
                                 <BookmarkCheck className="w-3.5 h-3.5 text-[#181d18]" />
                               ) : (
                                 <BookmarkPlus className="w-3.5 h-3.5 text-[#181d18]" />
@@ -515,7 +514,7 @@ export const SongbookSection: React.FC = () => {
                       title="Simpan ke Bank Lagu Lokal"
                     >
                       {savedSongIds.includes(activeSongModal.id) ||
-                      localSongs.some((s) => s.title === activeSongModal.title) ? (
+                      localSongs.some((s) => normalizeCompact(s.title) === normalizeCompact(activeSongModal.title)) ? (
                         <>
                           <BookmarkCheck className="w-4 h-4 text-[#181d18]" />
                           <span>Tersimpan di Bank</span>

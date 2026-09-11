@@ -1,6 +1,166 @@
-﻿import type { Song } from '../types';
+import type { Song } from '../types';
 
 export const SONGS_DATA: Song[] = [
+  {
+    id: 's-kurasa-bahagia',
+    title: 'Ku Rasa Bahagia (Hari Ini Kurasa Bahagia)',
+    artist: 'Lagu Persekutuan / Fellowship Rohkris',
+    key: 'D / C',
+    tempo: 'Upbeat / Praise',
+    category: 'Pujian',
+    lyrics: `Hari ini kurasa bahagia
+Berkumpul bersama saudara seiman
+Tuhan Yesus t'lah satukan kita
+Tanpa memandang di antara kita
+
+Bergandengan tangan dalam kasih
+Dalam satu hati
+Berjalan dalam terang kasih Tuhan
+
+Reff:
+Kau sahabatku, kau saudaraku
+Tiada yang dapat memisahkan kita
+Kau sahabatku, kau saudaraku
+Tiada yang dapat memisahkan kita`,
+    chordsSnippet: 'Intro: D - A/C# - Bm - A - G - D/F# - Em - A - D',
+  },
+  {
+    id: 's-dalam-yesus-kita-bersaudara',
+    title: 'Dalam Yesus Kita Bersaudara',
+    artist: 'Lagu Persekutuan Rohkris',
+    key: 'C / D',
+    tempo: 'Upbeat / Praise',
+    category: 'Pujian',
+    lyrics: `Dalam Yesus kita bersaudara
+Dalam Yesus kita bersaudara
+Dalam Yesus kita bersaudara
+Sekarang dan selamanya
+Dalam Yesus kita bersaudara!`,
+    chordsSnippet: 'Intro: C - G - C - G - C',
+  },
+  {
+    id: 's-kasih-pasti-lemah-lembut',
+    title: 'Kasih Pasti Lemah Lembut',
+    artist: 'Lagu Rohani / Pdt. Ir. Niko Njotorahardjo',
+    key: 'D / E',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Kasih pasti lemah lembut
+Kasih pasti memaafkan
+Kasih pasti murah hati
+Kasih-Mu kasih-Mu Tuhan
+
+Reff:
+Ajarilah kami ini saling mengasihi
+Ajarilah kami ini saling memaafkan
+Ajarilah kami ini kasih-Mu ya Tuhan
+Kasih-Mu kudus tiada batasnya`,
+    chordsSnippet: 'Intro: D - F#m - G - A - D',
+  },
+  {
+    id: 's-bagi-tuhan-tak-ada-yang-mustahil',
+    title: 'Bagi Tuhan Tak Ada Yang Mustahil',
+    artist: 'Sari Simorangkir',
+    key: 'G / A',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Ku yakin saat Kau berfirman
+Ku menang saat Kau bertindak
+Hidupku hanya ditentukan oleh perkataan-Mu
+
+Ku aman kar'na Kau menjaga
+Ku kuat kar'na Kau menopang
+Hidupku hanya ditentukan oleh kuasa-Mu
+
+Reff:
+Bagi Tuhan tak ada yang mustahil
+Bagi Tuhan tak ada yang tak mungkin
+Mukjizat-Nya disediakan bagiku
+Ku diangkat dan dipulihkan-Nya`,
+    chordsSnippet: 'Intro: G - Em - C - D - G',
+  },
+  {
+    id: 's-allah-peduli',
+    title: 'Allah Peduli',
+    artist: 'Jonathan Prawira',
+    key: 'C / D',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Banyak perkara yang tak dapat ku mengerti
+Mengapakah harus terjadi di dalam hidup ini
+Satu perkara yang kusimpan dalam hati
+Tiada satu pun 'kan terjadi tanpa Allah peduli
+
+Reff:
+Allah mengerti, Allah peduli
+Segala persoalan yang kita hadapi
+Tak akan pernah dibiarkan-Nya
+Kubergumul sendiri s'bab Allah mengerti`,
+    chordsSnippet: 'Intro: C - Em - F - Dm - G',
+  },
+  {
+    id: 's-betapa-hatiku',
+    title: 'Betapa Hatiku Berterima Kasih',
+    artist: 'Lagu Rohani',
+    key: 'F / G',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Betapa hatiku, berterima kasih Yesus
+Kau mengasihiku, Kau memilikiku
+
+Reff:
+Hanya ini Tuhan persembahanku
+Segenap hidupku, jiwa dan ragaku
+S'bab tak kumiliki harta kekayaan
+Yang cukup berarti 'tuk kupersembahkan
+
+Hanya ini Tuhan permohonanku
+Terimalah Tuhan persembahanku
+Pakailah hidupku sebagai alat-Mu
+Seumur hidupku`,
+    chordsSnippet: 'Intro: F - C/E - Dm - Bb - C - F',
+  },
+  {
+    id: 's-sungguh-ku-bangga-bapa',
+    title: 'Sungguh Ku Bangga Bapa',
+    artist: 'Lagu Rohani',
+    key: 'D / E',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Sungguh ku bangga Bapa punya Allah seperti Engkau
+Sungguh ku bangga Yesus atas s'gala pengorbanan-Mu
+Tak ingin aku berpaling dari kasih-Mu
+S'bab ku tahu Kau segalanya bagiku
+
+Reff:
+Pujian hormat kemuliaan
+Kupersembahkan bagi-Mu Tuhan
+Kekudusan dan keagungan
+Hanya milik-Mu selamanya`,
+    chordsSnippet: 'Intro: D - A/C# - Bm - G - A',
+  },
+  {
+    id: 's-jangan-lelah',
+    title: "Jangan Lelah Bekerja di Ladang-Nya Tuhan",
+    artist: 'Franky Sihombing',
+    key: 'C / D',
+    tempo: 'Upbeat / Praise',
+    category: 'Pujian',
+    lyrics: `Jangan lelah bekerja di ladang-Nya Tuhan
+Roh Kudus yang b'ri kekuatan
+Yang mengajar dan menopang
+Tiada lelah bekerja bersama-Mu Tuhan
+Yang selalu mencukupkan atas segalanya
+
+Reff:
+Ratakan tanah bergelombang
+Timbunlah tanah yang berlubang
+Menjadi siap dibangun di atas dasar iman
+Ratakan tanah bergelombang
+Timbunlah tanah yang berlubang
+Menjadi siap dibangun di atas dasar iman`,
+    chordsSnippet: 'Intro: C - F - G - C - Am - Dm - G - C',
+  },
   {
     id: 's-peganglah-tanganku-roh-kudus',
     title: 'Peganglah Tanganku Roh Kudus',
@@ -426,5 +586,80 @@ Selagi aku masih kuat
 Bila saatnya nanti ku tak berdaya lagi
 Hidup ini sudah jadi berkat`,
     chordsSnippet: 'Intro: C - F - C - G - C',
+  },
+  {
+    id: 's-kecaplah-dan-lihatlah',
+    title: 'Kecaplah dan Lihatlah',
+    artist: 'True Worshippers',
+    key: 'G / A',
+    tempo: 'Medium',
+    category: 'Pujian',
+    lyrics: `Kecaplah dan lihatlah betapa baiknya Tuhan itu
+Rasakan dan nikmati kasih setia Tuhan
+Kecaplah dan lihatlah betapa baiknya Tuhan itu
+Rasakan dan nikmati kasih setia Tuhan
+
+Reff:
+Syukur bagi-Mu Tuhan atas segala berkat-Mu
+Nama-Mu kutinggikan, Kau Allah yang setia
+Syukur bagi-Mu Tuhan atas anugerah-Mu
+Kupuji Kau s'lamanya`,
+    chordsSnippet: 'Intro: G - C - G - D',
+  },
+  {
+    id: 's-indah-rencana-mu',
+    title: 'Indah Rencana-Mu Tuhan',
+    artist: 'Margaritha Zakhary',
+    key: 'C / D',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Indah rencana-Mu Tuhan di dalam hidupku
+Walau ku tak tahu dan ku tak mengerti semua jalan-Mu
+Dulu ku tak tahu Tuhan, berat ku rasakan
+Hati menderita dan ku tak berdaya menghadapi semua
+
+Reff:
+Tapi ku mengerti s'karang, Kau tolong padaku
+Kini ku melihat dan ku merasakan indah rencana-Mu
+Tapi ku mengerti s'karang, Kau tolong padaku
+Kini ku melihat dan ku merasakan indah rencana-Mu`,
+    chordsSnippet: 'Intro: C - Em - F - Fm - C - G - C',
+  },
+  {
+    id: 's-bapa-kupersembahkan-tubuhku',
+    title: 'Bapa Kupersembahkan Tubuhku',
+    artist: 'Symphony Music',
+    key: 'D / E',
+    tempo: 'Slow Worship',
+    category: 'Penyembahan',
+    lyrics: `Bapa kupersembahkan tubuhku
+S'bagai persembahan yang hidup
+Kudus dan yang berkenan pada-Mu
+S'bagai ibadah yang sejati
+
+Reff:
+Kusembah Kau Tuhan, kusembah Kau Tuhan
+Kuserahkan hidupku kepada-Mu
+Untuk kemuliaan nama-Mu`,
+    chordsSnippet: 'Intro: D - G - A - D - Bm - Em - A - D',
+  },
+  {
+    id: 's-yesus-sahabatku',
+    title: 'Yesus Sahabatku',
+    artist: 'Franky Sihombing',
+    key: 'E / F',
+    tempo: 'Upbeat / Praise',
+    category: 'Pujian',
+    lyrics: `Yesus sahabatku, Kau mati bagiku
+Besarlah kasih-Mu, sahabat yang setia
+Kau angkat hidupku, Kau b'ri pengharapan
+Tak pernah Kau tinggalkan diriku sendiri
+
+Reff:
+Kau Yesus sahabatku yang sejati
+Kasih-Mu melampaui s'galanya
+Kau Yesus sahabatku yang abadi
+Kupuji Kau selama hidupku`,
+    chordsSnippet: 'Intro: E - A - B - C#m - A - B - E',
   },
 ];

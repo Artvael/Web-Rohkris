@@ -9,7 +9,22 @@ export function useSongStore() {
     if (typeof window === 'undefined') return SONGS_DATA;
     try {
       const stored = localStorage.getItem(STORAGE_KEY_SONGS);
-      if (stored) return JSON.parse(stored);
+      if (stored) {
+        const parsed = JSON.parse(stored) as Song[];
+        // Auto-merge any new default songs from SONGS_DATA that aren't yet in localStorage
+        const existingKeys = new Set(
+          parsed.map((s) => s.title.toLowerCase().replace(/[^a-z0-9]/g, ''))
+        );
+        const missingDefaults = SONGS_DATA.filter(
+          (def) => !existingKeys.has(def.title.toLowerCase().replace(/[^a-z0-9]/g, ''))
+        );
+        if (missingDefaults.length > 0) {
+          const merged = [...parsed, ...missingDefaults];
+          localStorage.setItem(STORAGE_KEY_SONGS, JSON.stringify(merged));
+          return merged;
+        }
+        return parsed;
+      }
       const legacyCustom = localStorage.getItem('rohkris64_custom_songs');
       if (legacyCustom) {
         return [...JSON.parse(legacyCustom), ...SONGS_DATA];
